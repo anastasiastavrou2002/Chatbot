@@ -1,0 +1,217 @@
+{
+  "basicInfo": "Βασικές Πληροφορίες",
+  "companyDetails": "Στοιχεία Εταιρείας",
+  "companyName": "Όνομα Εταιρείας",
+  "industry": "Κλάδος Δραστηριότητας",
+  "selectIndustry": "Επιλέξτε κλάδο",
+  "other": "Άλλο (Προσδιορίστε)",
+  "webPresence": "Διαδικτυακή Παρουσία",
+  "website": "Ιστοσελίδα",
+  "domain": "Domain",
+  "audienceAndDescription": "Κοινό & Περιγραφή",
+  "description": "Περιγραφή",
+  "required": "Αυτό το πεδίο είναι υποχρεωτικό",
+  "uploadFiles": "Ανέβασμα Αρχείων",
+  "uploadOptional": "Η προσθήκη αρχείων είναι προαιρετική, αλλά μπορεί να βελτιώσει σημαντικά τα αποτελέσματα.",
+  "selectFiles": "Επιλογή Αρχείων",
+  "clickToUpload": "Κάντε κλικ για ανέβασμα",
+  "dragAndDrop": "ή σύρετε και αφήστε τα εδώ",
+  "fileTypes": "Υποστηριζόμενοι τύποι: PDF, DOCX, TXT, κ.λπ.",
+  "selectedFiles": "Επιλεγμένα Αρχεία",
+  "keywords": "Λέξεις-Κλειδιά",
+  "conversationSettings": "Ρυθμίσεις Συνομιλίας",
+  "botName": "Όνομα Bot",
+  "greeting": "Μήνυμα Καλωσορίσματος",
+  "persona": "Προσωπικότητα (Persona)",
+  "botRestrictions": "Περιορισμοί",
+  "back": "Πίσω",
+  "next": "Επόμενο",
+  "submit": "Δημιουργία Bot",
+  "submitting": "Η δημιουργία είναι σε εξέλιξη...",
+  "appTitle": "Chatbot Builder",
+  "chatActiveSubtitle": "Το chatbot σας είναι ενεργό και έτοιμο για χρήση.",
+  "copyright": "© 2025 Η Εταιρεία σας",
+  "steps": {
+    "basicInfo": "Βασικά Στοιχεία Επιχείρησης",
+    "knowledge": "Γνώση & Δεδομένα",
+    "behavior": "Συμπεριφορά & Όρια",
+    "capabilities": "Δυνατότητες",
+    "branding": "Εμφάνιση & Branding",
+    "test": "Δοκιμή & Προεπισκόπηση",
+    "deploy": "Εγκατάσταση",
+    "analytics": "Στατιστικά"
+    
+  },
+  "formSteps": {
+    "altEnglish": "English Flag",
+    "altGreek": "Greek Flag"
+  },
+  "capabilities": {
+    "title": "Δυνατότητες",
+    "coreFeatures": "Βασικές Λειτουργίες",
+    "leadCaptureFields": "Πεδία Συλλογής Υποψήφιων Πελατών (Leads)"
+  },
+  "features": {
+    "leadCaptureForms": "Φόρμες Συλλογής Leads",
+    "productRecommendations": "Προτάσεις Προϊόντων",
+    "appointmentScheduling": "Προγραμματισμός Ραντεβού",
+    "multiLanguageSupport": "Υποστήριξη Πολλαπλών Γλωσσών",
+    "emailNotifications": "Ειδοποιήσεις μέσω Email",
+    "voiceSupport": "Φωνητική Υποστήριξη"
+  },
+  "fields": {
+    "name": "Όνομα",
+    "email": "Email",
+    "phone": "Τηλέφωνο",
+    "company": "Εταιρεία",
+    "message": "Μήνυμα"
+  },
+  "design": {
+    "title": "Προσαρμογή Εμφάνισης",
+    "subtitle": "Δώστε στο chatbot σας μια εμφάνιση που ταιριάζει με το brand σας.",
+    "primaryColor": "Κύριο Χρώμα",
+    "colorPickerAriaLabel": "Επιλογή χρώματος",
+    "position": "Θέση του Chatbot",
+    "themeStyle": "Στυλ Θέματος",
+    "positions": {
+      "bottomRight": "Κάτω Δεξιά",
+      "bottomLeft": "Κάτω Αριστερά"
+    },
+    "themes": {
+      "modern": "Μοντέρνο",
+      "classic": "Κλασικό",
+      "minimal": "Minimal"
+    },
+    "preview": {
+      "livePreview": "Ζωντανή Προεπισκόπηση",
+      "headerTitle": "Υποστήριξη",
+      "headerSubtitle": "Online",
+      "botMessage1": "Γεια σας! Πώς μπορώ να βοηθήσω;",
+      "userMessage1": "Θα ήθελα πληροφορίες για τιμές.",
+      "botMessage2": "Μπορώ να προτείνω ένα πακέτο.",
+      "inputPlaceholder": "Πληκτρολογήστε μήνυμα…",
+      "sendButton": "Αποστολή",
+      "launcherTitle": "Εκκινητής Chat",
+      "positionLabel": "Θέση",
+      "themeLabel": "Θέμα",
+      "colorLabel": "Χρώμα"
+    }
+  },
+  "test": {
+    "title": "Προεπισκόπηση Widget Συνομιλίας",
+    "liveMode": "Λειτουργία Ζωντανής Δοκιμής",
+    "clearChat": "Καθαρισμός Συνομιλίας",
+    "suggestions": {
+      "title": "Δοκιμάστε αυτές τις προτάσεις:"
+    },
+    "typingIndicator": "Το bot πληκτρολογεί…",
+    "inputPlaceholder": "Γράψτε το μήνυμά σας...",
+    "sendButton": "Αποστολή",
+    "infoBox": {
+      "title": "Λειτουργία Προεπισκόπησης:",
+      "body": "Συνδεδεμένο στον διακομιστή για ζωντανή δοκιμή. Οι απαντήσεις εξαρτώνται από το backend σας."
+    },
+    "defaults": {
+      "botName": "Βοηθός AI",
+      "greeting": "Καλώς ήρθατε! Είμαι ο βοηθός AI σας. Πώς μπορώ να σας βοηθήσω σήμερα;",
+      "placeholderInGreeting": "βοηθός AI"
+    },
+    "errors": {
+      "server": "Προέκυψε σφάλμα από τον διακομιστή.",
+      "network": "Προέκυψε σφάλμα δικτύου."
+    }
+  },
+  "deploy": {
+    "title": "Εγκατάσταση & Δημοσίευση",
+    "status": {
+      "published": "Δημοσιευμένο",
+      "notPublished": "Μη Δημοσιευμένο"
+    },
+    "publishButton": {
+      "publish": "Δημοσίευση",
+      "published": "Δημοσιεύτηκε"
+    },
+    "tabs": {
+      "script": "Script Tag",
+      "react": "React Component",
+      "iframe": "Iframe"
+    },
+    "copyButton": {
+      "copy": "Αντιγραφή",
+      "copied": "Αντιγράφηκε!"
+    },
+    "checklist": {
+      "title": "Λίστα Ελέγχου",
+      "item1": "Σωστή επιλογή χρώματος/θέματος",
+      "item2": "Σωστή θέση του widget",
+      "item3": "Το domain έχει προστεθεί στα επιτρεπόμενα",
+      "item4": "Το script φορτώνεται στη σελίδα προορισμού"
+    },
+    "config": {
+      "title": "Ρυθμίσεις Widget",
+      "botId": "Bot ID",
+      "theme": "Θέμα",
+      "position": "Θέση",
+      "primary": "Κύριο Χρώμα"
+    },
+    "domains": {
+      "title": "Επιτρεπόμενα Domains",
+      "placeholder": "π.χ., example.com",
+      "add": "Προσθήκη",
+      "remove": "Αφαίρεση"
+    },
+    "defaults": {
+      "greeting": "Καλώς ήρθατε! Είμαι ο βοηθός AI σας. Πώς μπορώ να σας βοηθήσω;",
+      "botName": "Βοηθός AI"
+    }
+  },
+  "analytics": {
+    "title": "Επισκόπηση Απόδοσης",
+    "lastUpdated": "Τελευταία ενημέρωση: {{time}}",
+    "autoRefresh": "Αυτόματη ανανέωση",
+    "refresh": "Ανανέωση",
+    "error": "Η φόρτωση των analytics απέτυχε ({{error}}). Δοκιμάστε ξανά.",
+    "stats": {
+      "totalChats": "Συνολικές Συνομιλίες",
+      "avgResponseTime": "Μέσος Χρόνος Απόκρισης",
+      "deflectionRate": "Ποσοστό Επίλυσης (Deflection)",
+      "satisfaction": "Ικανοποίηση Χρηστών"
+    },
+    "intents": {
+      "title": "Κορυφαίες Προθέσεις Χρηστών (Intents)",
+      "noData": "Δεν υπάρχουν δεδομένα προθέσεων."
+    },
+    "activity": {
+      "title": "Πρόσφατη Δραστηριότητα",
+      "noData": "Δεν υπάρχει πρόσφατη δραστηριότητα."
+    }
+  },
+  "placeholders": {
+    "companyExample": "π.χ., ΑΒΓ Εταιρεία",
+    "industryOther": "Παρακαλώ προσδιορίστε τον κλάδο σας",
+    "website": "https://www.example.com",
+    "domain": "example.com",
+    "description": "Περιγράψτε την εταιρεία σας, την αποστολή της και τι προσφέρει...",
+    "keywords": "Εισάγετε λέξεις-κλειδιά χωρισμένες με κόμμα (π.χ., τεχνητή νοημοσύνη, μάρκετινγκ, ανάλυση δεδομένων)",
+    "botName": "π.χ., Βοηθός Εξυπηρέτησης",
+    "greeting": "π.χ., Γεια σας! Πώς μπορώ να σας βοηθήσω σήμερα;",
+    "persona": "Περιγράψτε την προσωπικότητα του bot. π.χ., 'Είσαι ένας φιλικός και εξυπηρετικός βοηθός...'",
+    "botRestrictions": "Περιγράψτε τι δεν πρέπει να κάνει το bot. π.χ., 'Μην απαντάς σε ερωτήσεις εκτός θέματος. Μην χρησιμοποιείς αργκό.'"
+  },
+  "industries": {
+    "technology": "Τεχνολογία",
+    "finance": "Χρηματοοικονομικά",
+    "healthcare": "Υγεία",
+    "education": "Εκπαίδευση",
+    "retail": "Λιανικό Εμπόριο",
+    "manufacturing": "Βιομηχανία / Παραγωγή",
+    "hospitality": "Φιλοξενία",
+    "media": "Μέσα Μαζικής Ενημέρωσης",
+    "real_estate": "Ακίνητα (Real Estate)",
+    "transportation": "Μεταφορές",
+    "energy": "Ενέργεια",
+    "government": "Δημόσιος Τομέας",
+    "non_profit": "Μη Κερδοσκοπικός Οργανισμός",
+    "other": "Άλλο"
+  }
+}

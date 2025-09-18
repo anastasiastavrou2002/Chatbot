@@ -1,0 +1,217 @@
+{
+  "basicInfo": "Basic Info",
+  "companyDetails": "Company Details",
+  "companyName": "Company Name",
+  "industry": "Industry",
+  "selectIndustry": "Select an industry",
+  "other": "Other (Please specify)",
+  "webPresence": "Web Presence",
+  "website": "Website",
+  "domain": "Domain",
+  "audienceAndDescription": "Audience & Description",
+  "description": "Description",
+  "required": "This field is required",
+  "uploadFiles": "Upload Files",
+  "uploadOptional": "Adding files is optional, but can significantly improve results.",
+  "selectFiles": "Select Files",
+  "clickToUpload": "Click to upload",
+  "dragAndDrop": "or drag and drop",
+  "fileTypes": "Supported types: PDF, DOCX, TXT, etc.",
+  "selectedFiles": "Selected Files",
+  "keywords": "Keywords",
+  "conversationSettings": "Conversation Settings",
+  "botName": "Bot Name",
+  "greeting": "Welcome Message",
+  "persona": "Persona",
+  "botRestrictions": "Restrictions",
+  "back": "Back",
+  "next": "Next",
+  "submit": "Create Bot",
+  "submitting": "Creating...",
+  "appTitle": "Chatbot Builder",
+  "chatActiveSubtitle": "Your chatbot is active and ready to use.",
+  "copyright": "© 2025 Your Company",
+  "steps": {
+    "basicInfo": "Business Basics",
+    "knowledge": "Knowledge & Data",
+    "behavior": "Behavior & Guardrails",
+    "capabilities": "Capabilities",
+    "branding": "UI & Branding",
+    "test": "Test & Preview",
+    "deploy": "Embed",
+    "analytics": "Analytics"
+    
+  },
+  "formSteps": {
+    "altEnglish": "English Flag",
+    "altGreek": "Greek Flag"
+  },
+  "capabilities": {
+    "title": "Capabilities",
+    "coreFeatures": "Core Features",
+    "leadCaptureFields": "Lead Capture Fields"
+  },
+  "features": {
+    "leadCaptureForms": "Lead Capture Forms",
+    "productRecommendations": "Product Recommendations",
+    "appointmentScheduling": "Appointment Scheduling",
+    "multiLanguageSupport": "Multi-language Support",
+    "emailNotifications": "Email Notifications",
+    "voiceSupport": "Voice Support"
+  },
+  "fields": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "company": "Company",
+    "message": "Message"
+  },
+  "design": {
+    "title": "Customize Appearance",
+    "subtitle": "Give your chatbot a look and feel that matches your brand.",
+    "primaryColor": "Primary Color",
+    "colorPickerAriaLabel": "Color picker",
+    "position": "Chatbot Position",
+    "themeStyle": "Theme Style",
+    "positions": {
+      "bottomRight": "Bottom Right",
+      "bottomLeft": "Bottom Left"
+    },
+    "themes": {
+      "modern": "Modern",
+      "classic": "Classic",
+      "minimal": "Minimal"
+    },
+    "preview": {
+      "livePreview": "Live Preview",
+      "headerTitle": "Support",
+      "headerSubtitle": "Online",
+      "botMessage1": "Hello! How can I help?",
+      "userMessage1": "I'd like some info on pricing.",
+      "botMessage2": "I can recommend a plan for you.",
+      "inputPlaceholder": "Type a message…",
+      "sendButton": "Send",
+      "launcherTitle": "Chat Launcher",
+      "positionLabel": "Position",
+      "themeLabel": "Theme",
+      "colorLabel": "Color"
+    }
+  },
+  "test": {
+    "title": "Chat Widget Preview",
+    "liveMode": "Live Testing Mode",
+    "clearChat": "Clear Chat",
+    "suggestions": {
+      "title": "Try these suggestions:"
+    },
+    "typingIndicator": "The bot is typing…",
+    "inputPlaceholder": "Type your message...",
+    "sendButton": "Send",
+    "infoBox": {
+      "title": "Preview Mode:",
+      "body": "Connected to the server for live testing. Responses depend on your backend."
+    },
+    "defaults": {
+      "botName": "AI Assistant",
+      "greeting": "Welcome! I'm your AI assistant. How can I help you today?",
+      "placeholderInGreeting": "AI assistant"
+    },
+    "errors": {
+      "server": "An error occurred from the server.",
+      "network": "A network error occurred."
+    }
+  },
+  "deploy": {
+    "title": "Deploy & Publish",
+    "status": {
+      "published": "Published",
+      "notPublished": "Not Published"
+    },
+    "publishButton": {
+      "publish": "Publish",
+      "published": "Published"
+    },
+    "tabs": {
+      "script": "Script Tag",
+      "react": "React Component",
+      "iframe": "Iframe"
+    },
+    "copyButton": {
+      "copy": "Copy",
+      "copied": "Copied!"
+    },
+    "checklist": {
+      "title": "Checklist",
+      "item1": "Correct color/theme selected",
+      "item2": "Correct widget position",
+      "item3": "Domain added to the allowlist",
+      "item4": "Script loads on the final page"
+    },
+    "config": {
+      "title": "Widget Config",
+      "botId": "Bot ID",
+      "theme": "Theme",
+      "position": "Position",
+      "primary": "Primary Color"
+    },
+    "domains": {
+      "title": "Allowed Domains",
+      "placeholder": "e.g., example.com",
+      "add": "Add",
+      "remove": "Remove"
+    },
+    "defaults": {
+      "greeting": "Welcome! I'm your AI assistant. How can I help?",
+      "botName": "AI Assistant"
+    }
+  },
+  "analytics": {
+    "title": "Performance Overview",
+    "lastUpdated": "Last updated: {{time}}",
+    "autoRefresh": "Auto-refresh",
+    "refresh": "Refresh",
+    "error": "Failed to load analytics ({{error}}). Try again.",
+    "stats": {
+      "totalChats": "Total Chats",
+      "avgResponseTime": "Avg Response Time",
+      "deflectionRate": "Deflection Rate",
+      "satisfaction": "User Satisfaction"
+    },
+    "intents": {
+      "title": "Top User Intents",
+      "noData": "No intent data available."
+    },
+    "activity": {
+      "title": "Recent Activity",
+      "noData": "No recent activity."
+    }
+  },
+  "placeholders": {
+    "companyExample": "e.g., Acme Inc.",
+    "industryOther": "Please specify your industry",
+    "website": "https://www.example.com",
+    "domain": "example.com",
+    "description": "Describe your company, its mission, and what it offers...",
+    "keywords": "Enter keywords separated by commas (e.g., artificial intelligence, marketing, data analysis)",
+    "botName": "e.g., Customer Support Assistant",
+    "greeting": "e.g., Hello! How can I help you today?",
+    "persona": "Describe the bot's persona. e.g., 'You are a friendly and helpful assistant...'",
+    "botRestrictions": "Describe what the bot should not do. e.g., 'Do not answer off-topic questions. Do not use slang.'"
+  },
+  "industries": {
+    "technology": "Technology",
+    "finance": "Finance",
+    "healthcare": "Healthcare",
+    "education": "Education",
+    "retail": "Retail",
+    "manufacturing": "Manufacturing",
+    "hospitality": "Hospitality",
+    "media": "Media",
+    "real_estate": "Real Estate",
+    "transportation": "Transportation",
+    "energy": "Energy",
+    "government": "Government",
+    "non_profit": "Non-Profit",
+    "other": "Other"
+  }
+}
