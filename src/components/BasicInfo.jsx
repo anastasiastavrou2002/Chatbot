@@ -10,6 +10,7 @@ import TextareaAutosize from 'react-textarea-autosize'
 
 export default function BasicInfo({ formData, handleInputChange, errors, disabled = false }) {
   const { t } = useTranslation()
+
   const industryOptions = useMemo(
     () => [
       'technology',
@@ -30,13 +31,14 @@ export default function BasicInfo({ formData, handleInputChange, errors, disable
     []
   )
 
+  // Mobile-first classes
   const baseInputClasses =
-    'w-full p-3 pl-10 border rounded-xl transition duration-200 bg-slate-50 focus:bg-white focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed'
+    'w-full p-3 pl-9 sm:pl-10 border rounded-xl transition duration-200 bg-slate-50 focus:bg-white focus:outline-none text-base sm:text-sm disabled:opacity-60 disabled:cursor-not-allowed'
   const normalClasses = 'border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500'
   const errorClasses = 'border-red-500 focus:ring-2 focus:ring-red-500 focus:border-red-500'
-  const labelClasses = 'block text-sm font-medium text-slate-600 mb-2'
+  const labelClasses = 'block text-xs sm:text-sm font-medium text-slate-600 mb-2'
   const errorTextClasses = 'text-red-600 text-xs mt-1'
-  const sectionTitle = 'text-xl font-semibold text-slate-800'
+  const sectionTitle = 'text-lg sm:text-xl font-semibold text-slate-800'
   const requiredMark = <span className="text-red-600 ml-1">*</span>
 
   const normalizeUrl = useCallback((value) => {
@@ -57,22 +59,25 @@ export default function BasicInfo({ formData, handleInputChange, errors, disable
   const showOther = formData.industry === 'other'
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-3xl font-bold tracking-tight text-slate-900">{t('basicInfo')}</h2>
+    <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm">
+      <div className="mb-4 sm:mb-6 flex items-center justify-between">
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
+          {t('basicInfo')}
+        </h2>
       </div>
 
-      <div className="space-y-8">
-        <div className="space-y-6">
+      <div className="space-y-6 sm:space-y-8">
+        {/* Company Details */}
+        <div className="space-y-4 sm:space-y-6">
           <h3 className={sectionTitle}>{t('companyDetails')}</h3>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
             <div>
               <label htmlFor="company-name" className={labelClasses}>
                 {t('companyName')}
                 {errors.companyName ? requiredMark : null}
               </label>
               <div className="relative">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2 sm:pl-3">
                   <BuildingOfficeIcon className="h-5 w-5 text-slate-400" />
                 </div>
                 <TextareaAutosize
@@ -102,7 +107,7 @@ export default function BasicInfo({ formData, handleInputChange, errors, disable
                 {errors.industry ? requiredMark : null}
               </label>
               <div className="relative">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2 sm:pl-3">
                   <WrenchScrewdriverIcon className="h-5 w-5 text-slate-400" />
                 </div>
                 <select
@@ -143,7 +148,7 @@ export default function BasicInfo({ formData, handleInputChange, errors, disable
                   onChange={handleInputChange}
                   className={`w-full p-3 border rounded-xl bg-slate-50 ${
                     errors.industryOther ? errorClasses : normalClasses
-                  } resize-none pl-3`}
+                  } resize-none pl-3 text-base sm:text-sm`}
                   placeholder={t('placeholders.industryOther')}
                   minRows={1}
                   aria-invalid={Boolean(errors.industryOther)}
@@ -162,16 +167,17 @@ export default function BasicInfo({ formData, handleInputChange, errors, disable
 
         <div className="h-px w-full bg-slate-200" />
 
-        <div className="space-y-6">
+        {/* Web Presence */}
+        <div className="space-y-4 sm:space-y-6">
           <h3 className={sectionTitle}>{t('webPresence')}</h3>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
             <div>
               <label htmlFor="website" className={labelClasses}>
                 {t('website')}
                 {errors.websiteURL ? requiredMark : null}
               </label>
               <div className="relative">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2 sm:pl-3">
                   <GlobeAltIcon className="h-5 w-5 text-slate-400" />
                 </div>
                 <input
@@ -203,7 +209,7 @@ export default function BasicInfo({ formData, handleInputChange, errors, disable
                 {errors.domain ? requiredMark : null}
               </label>
               <div className="relative">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2 sm:pl-3">
                   <GlobeAltIcon className="h-5 w-5 text-slate-400" />
                 </div>
                 <input
@@ -234,16 +240,17 @@ export default function BasicInfo({ formData, handleInputChange, errors, disable
 
         <div className="h-px w-full bg-slate-200" />
 
-        <div className="space-y-6">
+        {/* Audience & Description */}
+        <div className="space-y-4 sm:space-y-6">
           <h3 className={sectionTitle}>{t('audienceAndDescription')}</h3>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
             <div className="md:col-span-2">
               <label htmlFor="description" className={labelClasses}>
                 {t('description')}
                 {errors.description ? requiredMark : null}
               </label>
               <div className="relative">
-                <div className="pointer-events-none absolute top-3 left-0 flex items-center pl-3">
+                <div className="pointer-events-none absolute top-3 left-0 flex items-center pl-2 sm:pl-3">
                   <PencilSquareIcon className="h-5 w-5 text-slate-400" />
                 </div>
                 <TextareaAutosize
@@ -253,7 +260,7 @@ export default function BasicInfo({ formData, handleInputChange, errors, disable
                   onChange={handleInputChange}
                   className={`${baseInputClasses} ${errors.description ? errorClasses : normalClasses} resize-none`}
                   placeholder={t('placeholders.description')}
-                  minRows={4}
+                  minRows={3}
                   aria-invalid={Boolean(errors.description)}
                   aria-describedby={errors.description ? 'description-error' : undefined}
                   disabled={disabled}
