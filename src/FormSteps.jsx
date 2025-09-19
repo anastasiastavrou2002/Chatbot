@@ -20,28 +20,54 @@ export default function FormSteps({
   onNext,
   onPrev,
   onFormSubmit,
+  apiKey,
+  widgetScript,
+  inheritedFormData,
   initialData = {},
 }) {
   const { t, i18n } = useTranslation();
 
-  const [formData, setFormData] = useState({ ...initialData });
+  const [formData, setFormData] = useState({
+    botName: '',
+    greeting: '',
+    persona: '',
+    botRestrictions: '',
+    companyName: '',
+    websiteURL: '',
+    industry: '',
+    industryOther: '',
+    description: '',
+    keywords: '',
+    allowedDomains: '',
+    primaryColor: '#4f46e5',
+    position: 'Bottom Right',
+    themeStyle: 'Minimal',
+    suggestedPrompts: '',
+    ...initialData,
+  });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const uploadFilesRef = useRef(null);
 
-  const handleInputChange = useCallback(
-    (e) => {
-      const { name, value } = e.target;
-      setFormData((prev) => ({ ...prev, [name]: value }));
-      if (errors[name]) setErrors((prev) => ({ ...prev, [name]: null }));
-    },
-    [errors]
-  );
+  const handleInputChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: null }));
+  }, [errors]);
 
-  // (παραμένουν ίδια)
-  const ensureHttp = (url) => { if (!url) return ''; if (!/^https?:\/\//i.test(url)) return 'http://' + url; return url; };
-  const validatePage = (pageIndex) => { return {}; };
-  const handleSubmit = async (e) => { e.preventDefault(); setIsSubmitting(true); const fd = new FormData(); onFormSubmit(fd); setTimeout(() => setIsSubmitting(false), 1000); };
+  const handleSubmit = async (e) => {
+    if (e) e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      const files = uploadFilesRef.current ? uploadFilesRef.current.getFiles() : [];
+      const formDataToSend = new FormData();
+      formDataToSend.append('company_info', JSON.stringify(formData));
+      files.forEach((file) => formDataToSend.append('files', file));
+      await onFormSubmit(formDataToSend);
+    } finally {
+      setTimeout(() => setIsSubmitting(false), 400);
+    }
+  };
 
   const commonProps = { formData, handleInputChange, errors };
   const progress = steps.length > 0 ? ((currentPage + 1) / steps.length) * 100 : 0;
@@ -49,71 +75,49 @@ export default function FormSteps({
 
   return (
     <>
-      {/* Header + Progress */}
-      <div className="mb-5 sm:mb-8">
-        <div className="mb-3 flex items-center justify-between gap-3">
-          <p className="text-xs sm:text-sm font-medium text-indigo-600 truncate">
-            {steps[currentPage]}
-          </p>
-          <div className="flex items-center gap-2 sm:gap-3">
-            <img
-              src={UkFlag}
-              alt={t('formSteps.altEnglish')}
-              className={`h-4 w-6 sm:h-5 sm:w-7 cursor-pointer rounded shadow ${
-                i18n.language === 'en' ? 'ring-2 ring-indigo-500' : ''
-              }`}
-              onClick={() => changeLang('en')}
-            />
-            <img
-              src={GreekFlag}
-              alt={t('formSteps.altGreek')}
-              className={`h-4 w-6 sm:h-5 sm:w-7 cursor-pointer rounded shadow ${
-                i18n.language === 'el' ? 'ring-2 ring-indigo-500' : ''
-              }`}
-              onClick={() => changeLang('el')}
-            />
-          </div>
+      <div className="mb-8">
+        <div className="flex justify-end gap-3 mb-4">
+          <img
+            src={UkFlag}
+            alt={t('formSteps.altEnglish', 'English')}
+            className={`w-7 h-5 cursor-pointer rounded shadow ${i18n.language === 'en' ? 'ring-2 ring-indigo-500' : ''}`}
+            onClick={() => changeLang('en')}
+          />
+          <img
+            src={GreekFlag}
+            alt={t('formSteps.altGreek', 'Ελληνικά')}
+            className={`w-7 h-5 cursor-pointer rounded shadow ${i18n.language === 'el' ? 'ring-2 ring-indigo-500' : ''}`}
+            onClick={() => changeLang('el')}
+          />
         </div>
 
-        <div
-          className="w-full overflow-hidden rounded-full bg-slate-200"
-          role="progressbar"
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-valuenow={Math.round(progress)}
-          aria-label={t('progress')}
-        >
-          <div
-            className="h-1.5 sm:h-2 rounded-full bg-indigo-600 transition-[width] duration-300 ease-out"
-            style={{ width: `${progress}%` }}
-          />
+        <p className="text-sm font-medium text-indigo-600">{steps[currentPage]}</p>
+        <div className="w-full bg-slate-200 rounded-full h-2 overflow-hidden" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress)} aria-label={t('progress')}>
+          <div className="bg-indigo-600 h-2 rounded-full" style={{ width: `${progress}%` }} />
         </div>
       </div>
 
       <form onSubmit={handleSubmit}>
-        <div className="min-h-[380px] sm:min-h-[450px]">
+        <div className="min-h-[450px]">
           {currentPage === 0 && <BasicInfo {...commonProps} />}
           {currentPage === 1 && <UploadFiles {...commonProps} ref={uploadFilesRef} />}
           {currentPage === 2 && <Settings {...commonProps} />}
           {currentPage === 3 && <Capabilities {...commonProps} />}
           {currentPage === 4 && <Design {...commonProps} />}
-          {currentPage === 5 && <Test {...commonProps} />}
-          {currentPage === 6 && <Deploy {...commonProps} />}
-          {currentPage === 7 && <Analytics {...commonProps} />}
+          {currentPage === 5 && (
+            <Test
+              formData={inheritedFormData || formData}
+              apiKey={apiKey}
+              serverUrl="http://127.0.0.1:8000/chat"
+            />
+          )}
+          {currentPage === 6 && <Analytics {...commonProps} />}
+          {currentPage === 7 && <Deploy {...commonProps} apiKey={apiKey} widgetScript={widgetScript} />}
         </div>
 
-        {/* Actions */}
-        <div
-          className={`flex flex-col-reverse sm:flex-row gap-2 sm:gap-3 pt-5 sm:pt-6 ${
-            currentPage > 0 ? 'sm:justify-between' : 'sm:justify-end'
-          }`}
-        >
+        <div className={`flex pt-6 ${currentPage > 0 ? 'justify-between' : 'justify-end'}`}>
           {currentPage > 0 && (
-            <button
-              type="button"
-              onClick={onPrev}
-              className="w-full sm:w-auto rounded-lg bg-slate-100 px-4 sm:px-6 py-2.5 text-sm sm:text-base font-medium text-slate-700 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            >
+            <button type="button" onClick={onPrev} className="text-slate-600 font-medium py-3 px-6 rounded-lg bg-slate-100">
               {t('back')}
             </button>
           )}
@@ -121,19 +125,16 @@ export default function FormSteps({
           {currentPage < steps.length - 1 && (
             <button
               type="button"
-              onClick={onNext}
-              className="w-full sm:w-auto rounded-lg bg-indigo-600 px-4 sm:px-6 py-2.5 text-sm sm:text-base font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              onClick={currentPage === 4 ? handleSubmit : onNext}
+              className="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg"
+              disabled={currentPage === 4 && isSubmitting}
             >
-              {t('next')}
+              {currentPage === 4 ? (isSubmitting ? t('submitting') : t('createChatbot', 'Create Chatbot')) : t('next')}
             </button>
           )}
 
           {currentPage === steps.length - 1 && (
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full rounded-lg bg-indigo-600 px-4 sm:px-6 py-2.5 text-sm sm:text-base font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            >
+            <button type="submit" disabled={isSubmitting} className="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg disabled:bg-slate-400 disabled:cursor-not-allowed">
               {isSubmitting ? t('submitting') : t('submit')}
             </button>
           )}

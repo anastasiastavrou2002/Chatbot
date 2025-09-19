@@ -3,16 +3,20 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline'
 
-function useChatTransport({ serverUrl, transport = 'ws', headers = {} }) {
-  const wsRef = useRef(null); const ctrlRef = useRef(null); const [status, setStatus] = useState('idle'); const listeners = useRef({ message: () => {}, error: () => {} }); useEffect(() => { return () => { try { wsRef.current && wsRef.current.close() } catch {} try { ctrlRef.current && ctrlRef.current.abort() } catch {} } }, []); const connectWS = () => { if (!serverUrl) return; try { setStatus('connecting'); const ws = new WebSocket(serverUrl.replace(/^http/, 'ws')); ws.onopen = () => setStatus('connected'); ws.onclose = () => setStatus('disconnected'); ws.onerror = () => setStatus('error'); ws.onmessage = (e) => { try { const data = JSON.parse(e.data); listeners.current.message(data) } catch { listeners.current.message({ type: 'chunk', text: String(e.data || '') }) } }; wsRef.current = ws } catch { setStatus('error') } }; const sendWS = (payload) => { if (!wsRef.current || wsRef.current.readyState !== 1) connectWS(); const trySend = () => { if (wsRef.current && wsRef.current.readyState === 1) { wsRef.current.send(JSON.stringify(payload)) } else { setTimeout(trySend, 80) } }; trySend() }; const streamSSE = async (payload) => { if (!serverUrl) return; setStatus('connecting'); try { ctrlRef.current && ctrlRef.current.abort(); const ctrl = new AbortController(); ctrlRef.current = ctrl; const res = await fetch(serverUrl, { method: 'POST', headers: { 'Content-Type': 'application/json', ...headers }, body: JSON.stringify(payload), signal: ctrl.signal, }); setStatus(res.ok ? 'connected' : 'error'); if (!res.body) return; const reader = res.body.getReader(); const dec = new TextDecoder(); for (;;) { const { value, done } = await reader.read(); if (done) break; const chunk = dec.decode(value); const lines = chunk.split('\n'); for (const line of lines) { const l = line.trim(); if (!l) continue; if (l.startsWith('data:')) { const json = l.slice(5).trim(); try { const obj = JSON.parse(json); listeners.current.message(obj) } catch { listeners.current.message({ type: 'chunk', text: json }) } } else { listeners.current.message({ type: 'chunk', text: l }) } } } listeners.current.message({ type: 'done' }) } catch (e) { if (e.name !== 'AbortError') { setStatus('error'); listeners.current.error(e) } } }; const send = (payload) => { if (transport === 'ws') { if (!wsRef.current || wsRef.current.readyState > 1) connectWS(); sendWS(payload) } else { streamSSE(payload) } }; const on = (event, fn) => { listeners.current[event] = fn }; const abort = () => { try { ctrlRef.current && ctrlRef.current.abort() } catch {} }; return { status, connectWS, send, on, abort }
-}
-
-export default function Test({ formData, serverUrl = import.meta?.env?.VITE_CHAT_SERVER_URL || '', transport = 'ws', headers = {} }) {
+export default function Test({ formData, apiKey, serverUrl = 'http://127.0.0.1:8000/chat' }) {
   const { t } = useTranslation()
 
   const primary = formData?.primaryColor || '#4f46e5'
-  const botName = formData?.botName?.trim() || t('test.defaults.botName')
-  const greeting = formData?.greeting?.trim() || t('test.defaults.greeting')
+  const botName = (formData?.botName || '').trim() || t('test.defaults.botName')
+  const greetingRaw = (formData?.greeting || '').trim() || t('test.defaults.greeting')
+
+  // Replace placeholder with bot name if present
+  const effectiveGreeting = useMemo(() => {
+    const placeholder = t('test.defaults.placeholderInGreeting')
+    return greetingRaw.includes(placeholder)
+      ? greetingRaw.replace(placeholder, botName)
+      : greetingRaw
+  }, [greetingRaw, botName, t])
 
   const suggestions = useMemo(() => {
     const raw = formData?.suggestedPrompts || ''
@@ -22,61 +26,110 @@ export default function Test({ formData, serverUrl = import.meta?.env?.VITE_CHAT
   const [messages, setMessages] = useState([])
   const [value, setValue] = useState('')
   const [isTyping, setIsTyping] = useState(false)
-  const [convId] = useState(() => Math.random().toString(36).slice(2))
   const scrollRef = useRef(null)
 
-  const chat = useChatTransport({ serverUrl, transport, headers })
-
-  const effectiveGreeting = useMemo(() => {
-    const placeholder = t('test.defaults.placeholderInGreeting')
-    return greeting.includes(placeholder) ? greeting.replace(placeholder, botName) : greeting
-  }, [greeting, botName, t])
-
+  // Initialize greeting
   useEffect(() => {
     setMessages([{ from: 'bot', text: effectiveGreeting }])
     setIsTyping(false)
   }, [effectiveGreeting])
 
+  // Auto scroll
   useEffect(() => {
     const el = scrollRef.current
     if (el) el.scrollTop = el.scrollHeight
   }, [messages, isTyping])
 
-  useEffect(() => {
-    chat.on('message', (data) => {
-      if (data.type === 'start') { setIsTyping(true); setMessages(prev => [...prev, { from: 'bot', text: '' }]); return }
-      if (data.type === 'done') { setIsTyping(false); return }
-      if (data.type === 'error') { setIsTyping(false); setMessages(prev => [...prev, { from: 'bot', text: t('test.errors.server') }]); return }
-      if (typeof data === 'string') { setMessages(prev => { const next = [...prev]; const last = next[next.length - 1]; if (last && last.from === 'bot') last.text += data; else next.push({ from: 'bot', text: data }); return next }); return }
-      if (data.type === 'chunk' && typeof data.text === 'string') { setMessages(prev => { const next = [...prev]; const last = next[next.length - 1]; if (last && last.from === 'bot') last.text += data.text; else next.push({ from: 'bot', text: data.text }); return next }); return }
-      if (data.reply) { setMessages(prev => [...prev, { from: 'bot', text: data.reply }]); setIsTyping(false) }
-    })
-    chat.on('error', () => {
-      setIsTyping(false)
-      setMessages(prev => [...prev, { from: 'bot', text: t('test.errors.network') }])
-    })
-    if (transport === 'ws' && serverUrl) chat.connectWS()
-  }, [chat, serverUrl, transport, t])
-
   const clearChat = () => {
-    chat.abort()
     setMessages([{ from: 'bot', text: effectiveGreeting }])
     setValue('')
     setIsTyping(false)
   }
 
-  const pushUser = (text) => { setMessages(prev => [...prev, { from: 'user', text }]) }
-  const sendToServer = (text) => {
-    const payload = { conversationId: convId, message: text, history: messages.map(m => ({ role: m.from === 'user' ? 'user' : 'assistant', content: m.text })) }
-    if (transport === 'ws') { chat.send({ type: 'user', ...payload }) } else { chat.send(payload) }
+  const pushUser = (text) => {
+    setMessages(prev => [...prev, { from: 'user', text }])
   }
-  const handleSend = (e) => { e?.preventDefault?.(); const text = value.trim(); if (!text) return; pushUser(text); setValue(''); setIsTyping(true); sendToServer(text) }
-  const handleSuggestionClick = (s) => { pushUser(s); setIsTyping(true); sendToServer(s) }
 
-  const statusDot = chat.status === 'connected' ? '#16a34a' : chat.status === 'connecting' ? '#f59e0b' : '#94a3b8'
+  // Streaming via fetch (SSE-like) with incremental update
+  const sendToServer = async (text) => {
+    const recentHistory = messages.slice(-6).map(m => ({
+      role: m.from === 'user' ? 'user' : 'assistant',
+      content: m.text,
+    }))
+
+    try {
+      const response = await fetch(`${serverUrl}?api_key=${apiKey}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text, history: recentHistory }),
+      })
+
+      if (!response.ok || !response.body) {
+        throw new Error('Bad response')
+      }
+
+      // Create placeholder bot message to stream into
+      const botMessageId = Date.now() + Math.random()
+      setMessages(prev => [...prev, { id: botMessageId, from: 'bot', text: '' }])
+
+      const reader = response.body.getReader()
+      const decoder = new TextDecoder()
+
+      for (;;) {
+        const { done, value } = await reader.read()
+        if (done) break
+        const chunk = decoder.decode(value)
+        const lines = chunk.split('\n')
+        for (const line of lines) {
+          const l = line.trim()
+          if (!l) continue
+          if (l.startsWith('data:')) {
+            const data = l.slice(5).trim()
+            if (data === '[DONE]') break
+            try {
+              const parsed = JSON.parse(data)
+              if (typeof parsed.response === 'string') {
+                setMessages(prev => prev.map(msg => (
+                  msg.id === botMessageId ? { ...msg, text: msg.text + parsed.response } : msg
+                )))
+              }
+            } catch {
+              // non-JSON line; append as plain text
+              setMessages(prev => prev.map(msg => (
+                msg.id === botMessageId ? { ...msg, text: msg.text + data } : msg
+              )))
+            }
+          }
+        }
+      }
+    } catch (e) {
+      setMessages(prev => [...prev, { from: 'bot', text: t('test.errors.network') }])
+    } finally {
+      setIsTyping(false)
+    }
+  }
+
+  const handleSend = (e) => {
+    e?.preventDefault?.()
+    const text = value.trim()
+    if (!text) return
+    pushUser(text)
+    setValue('')
+    setIsTyping(true)
+    sendToServer(text)
+  }
+
+  const handleSuggestionClick = (s) => {
+    pushUser(s)
+    setIsTyping(true)
+    sendToServer(s)
+  }
+
+  const statusDot = apiKey ? '#16a34a' : '#94a3b8'
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-4 md:p-6 shadow-sm">
+      {/* Header */}
       <div className="mb-3 md:mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <h2 className="text-xl md:text-2xl font-semibold text-slate-900">{t('test.title')}</h2>
         <div className="flex flex-wrap items-center gap-2 sm:gap-3">
@@ -95,6 +148,7 @@ export default function Test({ formData, serverUrl = import.meta?.env?.VITE_CHAT
       </div>
 
       <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 sm:p-5">
+        {/* Greeting state */}
         {messages.length === 1 && (
           <div className="mb-4 flex flex-col items-center text-center">
             <div className="mb-3 grid h-10 w-10 sm:h-12 sm:w-12 place-items-center rounded-full bg-slate-200 text-slate-500">
@@ -104,6 +158,7 @@ export default function Test({ formData, serverUrl = import.meta?.env?.VITE_CHAT
           </div>
         )}
 
+        {/* Suggestions */}
         {suggestions.length > 0 && (
           <>
             <div className="mb-2 text-center text-xs sm:text-sm font-medium text-slate-600">{t('test.suggestions.title')}</div>
@@ -124,14 +179,15 @@ export default function Test({ formData, serverUrl = import.meta?.env?.VITE_CHAT
           </>
         )}
 
+        {/* Messages */}
         <div
           ref={scrollRef}
-          className="mb-4 max-h-[260px] sm:max-h-[340px] min-h-[120px] sm:min-h-[140px] overflow-y-auto rounded-lg border border-slate-200 bg-white p-3"
+          className="mb-4 max-h}[260px] sm:max-h-[340px] min-h-[120px] sm:min-h-[140px] overflow-y-auto rounded-lg border border-slate-200 bg-white p-3"
         >
           {messages.map((m, idx) => {
             const isUser = m.from === 'user'
             return (
-              <div key={idx} className={`mb-2 flex ${isUser ? 'justify-end' : 'justify-start'}`}>
+              <div key={m.id ?? idx} className={`mb-2 flex ${isUser ? 'justify-end' : 'justify-start'}`}>
                 <div
                   className={`max-w-[85%] sm:max-w-[80%] rounded-2xl px-3 py-2 text-sm shadow-sm ${isUser ? 'text-white' : 'bg-slate-100 text-slate-800'}`}
                   style={isUser ? { backgroundColor: primary } : {}}
@@ -149,11 +205,18 @@ export default function Test({ formData, serverUrl = import.meta?.env?.VITE_CHAT
           )}
         </div>
 
+        {/* Input */}
         <form onSubmit={handleSend} className="flex flex-col sm:flex-row gap-2 sm:gap-3">
           <input
             type="text"
             value={value}
             onChange={(e) => setValue(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault()
+                handleSend(e)
+              }
+            }}
             placeholder={t('test.inputPlaceholder')}
             className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-800 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
@@ -167,6 +230,7 @@ export default function Test({ formData, serverUrl = import.meta?.env?.VITE_CHAT
         </form>
       </div>
 
+      {/* Info box */}
       <div className="mt-4 rounded-xl border border-indigo-100 bg-indigo-50 p-3 sm:p-4 text-xs sm:text-sm text-slate-700">
         <span className="font-semibold">{t('test.infoBox.title')}</span> {t('test.infoBox.body')}
       </div>
