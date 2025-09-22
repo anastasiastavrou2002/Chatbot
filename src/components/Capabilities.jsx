@@ -13,11 +13,7 @@ export default function Capabilities({ formData, handleInputChange, disabled = f
   const coreFeatures = useMemo(
     () => [
       { key: 'leadCapture', label: t('features.leadCaptureForms') },
-      { key: 'productRecommendations', label: t('features.productRecommendations') },
       { key: 'appointmentScheduling', label: t('features.appointmentScheduling') },
-      { key: 'multiLanguageSupport', label: t('features.multiLanguageSupport') },
-      { key: 'emailNotifications', label: t('features.emailNotifications') },
-      { key: 'voiceSupport', label: t('features.voiceSupport') },
     ],
     [t]
   )
@@ -41,6 +37,8 @@ export default function Capabilities({ formData, handleInputChange, disabled = f
     const updated = { ...(formData[group] || {}), [key]: !current }
     handleInputChange({ target: { name: group, value: updated } })
   }
+
+  const leadEnabled = !!core.leadCapture
 
   return (
     <div className={cardClasses}>
@@ -70,24 +68,29 @@ export default function Capabilities({ formData, handleInputChange, disabled = f
           </div>
         </section>
 
-        <section className="space-y-3 md:space-y-4">
-          <h4 className={groupTitle}>{t('capabilities.leadCaptureFields')}</h4>
-          <div className="grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {leadCaptureFields.map(({ key, label }) => (
-              <label key={key} className="inline-flex items-start gap-2">
-                <input
-                  type="checkbox"
-                  className="mt-0.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
-                  checked={!!fields[key]}
-                  onChange={() => onToggle(`leadCaptureFields.${key}`, !!fields[key])}
-                  disabled={disabled}
-                  aria-label={label}
-                />
-                <span className={checkboxLabel}>{label}</span>
-              </label>
-            ))}
-          </div>
-        </section>
+        {leadEnabled && (
+          <section
+            className="space-y-3 md:space-y-4"
+            aria-hidden={!leadEnabled}
+          >
+            <h4 className={groupTitle}>{t('capabilities.leadCaptureFields')}</h4>
+            <div className="grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {leadCaptureFields.map(({ key, label }) => (
+                <label key={key} className="inline-flex items-start gap-2">
+                  <input
+                    type="checkbox"
+                    className="mt-0.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                    checked={!!fields[key]}
+                    onChange={() => onToggle(`leadCaptureFields.${key}`, !!fields[key])}
+                    disabled={disabled}
+                    aria-label={label}
+                  />
+                  <span className={checkboxLabel}>{label}</span>
+                </label>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   )

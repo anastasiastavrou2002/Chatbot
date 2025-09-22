@@ -27,7 +27,10 @@
   "back": "Πίσω",
   "next": "Επόμενο",
   "submit": "Δημιουργία Bot",
-  "submitting": "Η δημιουργία είναι σε εξέλιξη...",
+  "creatingChatbotTitle": "Δημιουργία του Chatbot σας",
+  "creatingChatbotSubtitle": "Αυτό μπορεί να διαρκέσει μερικά λεπτά. Μπορείτε να κλείσετε αυτό το παράθυρο και να επιστρέψετε αργότερα.",
+  "dontClosePage": "Μην κλείσετε αυτή τη σελίδα.",
+  "willNotifyWhenReady": "Θα σας ειδοποιήσουμε όταν είναι έτοιμο.",
   "appTitle": "Chatbot Builder",
   "chatActiveSubtitle": "Το chatbot σας είναι ενεργό και έτοιμο για χρήση.",
   "copyright": "© 2025 Η Εταιρεία σας",
@@ -38,8 +41,7 @@
     "capabilities": "Δυνατότητες",
     "branding": "Εμφάνιση & Branding",
     "test": "Δοκιμή & Προεπισκόπηση",
-    "deploy": "Εγκατάσταση",
-    "analytics": "Στατιστικά"
+    "deploy": "Εγκατάσταση"
     
   },
   "formSteps": {
@@ -53,11 +55,7 @@
   },
   "features": {
     "leadCaptureForms": "Φόρμες Συλλογής Leads",
-    "productRecommendations": "Προτάσεις Προϊόντων",
-    "appointmentScheduling": "Προγραμματισμός Ραντεβού",
-    "multiLanguageSupport": "Υποστήριξη Πολλαπλών Γλωσσών",
-    "emailNotifications": "Ειδοποιήσεις μέσω Email",
-    "voiceSupport": "Φωνητική Υποστήριξη"
+    "appointmentScheduling": "Προγραμματισμός Ραντεβού"
   },
   "fields": {
     "name": "Όνομα",
@@ -213,5 +211,13 @@
     "government": "Δημόσιος Τομέας",
     "non_profit": "Μη Κερδοσκοπικός Οργανισμός",
     "other": "Άλλο"
+  },
+  "personas": {
+    "support": "Υποστήριξη",
+    "sales": "Πωλήσεις",
+    "tech": "Τεχνική Βοήθεια",
+    "friendly": "Φιλικός & Προσιτός",
+    "professional": "Επαγγελματικός & Τυπικός",
+    "other":"Άλλο (Παρακαλώ προσδιορίστε)"
   }
 }

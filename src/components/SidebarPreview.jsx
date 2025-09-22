@@ -1,81 +1,129 @@
-// src/components/SidebarPreview.jsx
+// src/SidebarPreview.jsx
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-const CheckIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-  </svg>
-);
+export default function SidebarPreview({
+  steps,
+  currentPage,
+  maxVisitedPage,
+  onGoToPage,
+  isMobile = false,
+  showHeader = true,
+}) {
+  const { t } = useTranslation();
+  const renderHeader = !isMobile && showHeader;
 
-export default function SidebarPreview({ steps, currentPage, maxVisitedPage, onGoToPage }) {
+  // Η λογική για το πότε ξεκλειδώνει το κουμπί Analytics παραμένει
+  const isAnalyticsUnlocked = maxVisitedPage >= steps.length - 1;
+
   return (
-    <div className="z-10 flex h-full w-full flex-col">
-      <div className="mb-6 sm:mb-10">
-        <h1 className="text-xl sm:text-2xl font-bold text-indigo-500">Chatbot Builder</h1>
-        <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-600">Δημιουργήστε το AI chatbot σας σε μερικά βήματα.</p>
-      </div>
+    <aside className="w-full">
+      {/* Header: μόνο στο desktop */}
+      {renderHeader && (
+        <div className="mb-4">
+          <h1 className="text-xl font-bold text-indigo-600">{t('appTitle')}</h1>
+          <p className="mt-2 text-sm text-gray-600">
+            {t('sidebarSubtitle', 'Δημιουργήστε το AI chatbot σας σε μερικά βήματα.')}
+          </p>
+        </div>
+      )}
 
-      <nav className="flex-grow">
-        <ol className="relative">
-          {steps.map((stepName, index) => {
-            const isCompleted = index < currentPage;
-            const isActive = index === currentPage;
-            const isClickable = index <= maxVisitedPage;
-
-            const buttonClasses = [
-              'flex w-full items-center rounded-lg text-left transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500',
-              'p-2.5 sm:p-3',
-              isClickable ? 'hover:bg-gray-100' : 'cursor-not-allowed',
-            ].join(' ');
-
-            const circleClasses = [
-              'flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full text-xs font-semibold transition-all duration-300',
-              isActive ? 'bg-indigo-600 text-white ring-4 ring-indigo-100' : '',
-              isCompleted ? 'bg-indigo-600 text-white' : '',
-              !isActive && !isCompleted ? 'border-2 border-gray-300 bg-white text-gray-500' : '',
-            ].join(' ');
-
-            const lineClasses = [
-              'absolute -z-10 w-0.5 transition-colors duration-300',
-              'left-5 sm:left-6 top-9 sm:top-10 h-full',
-              isCompleted ? 'bg-indigo-600' : 'bg-gray-200',
-            ].join(' ');
-
-            const stepNameClasses = [
-              'font-medium break-words',
-              isActive ? 'text-indigo-600 font-semibold' : '',
-              isCompleted ? 'text-gray-700' : 'text-gray-500',
-              !isClickable ? 'text-gray-400' : '',
-              'text-sm sm:text-base',
-            ].join(' ');
+      {/* Λίστα βημάτων */}
+      <nav aria-label={t('stepsTitle', 'Βήματα')} className={isMobile ? 'mt-0' : 'mt-4'}>
+        {/* Ο container πρέπει να είναι 'relative' για να τοποθετηθεί σωστά η γραμμή */}
+        <div className="relative">
+          {/* --- ΝΕΟ: Η ΕΝΙΑΙΑ, ΣΥΝΕΧΗΣ ΓΡΑΜΜΗ --- */}
+          {/* Αυτή η γραμμή τοποθετείται μία φορά, πίσω από όλα τα βήματα. */}
+          <div
+            aria-hidden="true"
+            className="absolute left-3.5 top-3.5 bottom-3.5 w-0.5 -translate-x-1/2 bg-slate-200"
+          />
+          {/* --- ΤΕΛΟΣ ΝΕΟΥ ΣΤΟΙΧΕΙΟΥ --- */}
+          
+          {steps.map((label, idx) => {
+            const unlocked = idx <= maxVisitedPage;
+            const active = idx === currentPage;
 
             return (
-              <li key={`${stepName}-${index}`} className="relative mb-4 sm:mb-5">
-                {index < steps.length - 1 && <div className={lineClasses} />}
-                <button
-                  onClick={() => onGoToPage && onGoToPage(index)}
-                  disabled={!isClickable}
-                  className={buttonClasses}
-                  aria-current={isActive ? 'step' : undefined}
-                  aria-disabled={!isClickable}
+              <button
+                key={idx}
+                type="button"
+                onClick={() => unlocked && onGoToPage(idx)}
+                disabled={!unlocked}
+                className={[
+                  'w-full flex items-center gap-3 py-3 text-left',
+                  unlocked ? 'cursor-pointer' : 'opacity-50 cursor-not-allowed',
+                ].join(' ')}
+              >
+                {/* 
+                  ΕΧΕΙ ΑΦΑΙΡΕΘΕΙ η παλιά, τμηματική γραμμή από εδώ μέσα.
+                */}
+                
+                <span
+                  className={[
+                    'flex items-center justify-center w-7 h-7 rounded-full border',
+                    // Το 'relative' εξασφαλίζει ότι ο κύκλος θα εμφανιστεί ΠΑΝΩ από την γκρι γραμμή
+                    'relative', 
+                    active
+                      ? 'bg-indigo-600 text-white border-indigo-600 ring-2 ring-indigo-300'
+                      : unlocked
+                        ? 'bg-indigo-600 text-white border-indigo-600' // Ολοκληρωμένο αλλά όχι active
+                        : 'bg-white text-slate-600 border-slate-300', // Μη ολοκληρωμένο
+                  ].join(' ')}
                 >
-                  <div className={circleClasses}>
-                    {isCompleted ? <CheckIcon /> : index + 1}
-                  </div>
-                  <div className="ml-3 sm:ml-4">
-                    <p className={stepNameClasses}>{stepName}</p>
-                    {isActive && <p className="text-[11px] sm:text-xs text-gray-500">Επόμενο βήμα</p>}
-                  </div>
-                </button>
-              </li>
+                  {unlocked && !active ? (
+                     <svg
+                        viewBox="0 0 24 24"
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                  ) : (
+                    idx + 1
+                  )}
+                </span>
+                <span className={active ? 'text-indigo-600 font-medium' : 'text-slate-700'}>
+                  {label}
+                </span>
+              </button>
             );
           })}
-        </ol>
+        </div>
       </nav>
 
-      <div className="mt-auto">
-        <p className="text-xs sm:text-sm text-gray-500">© 2025 Your Company</p>
+      {/* Κουμπί για Analytics */}
+      <div className="mt-4 pt-4 border-t border-slate-200">
+        <a
+          href="/analytics"
+          className={[
+            'w-full flex items-center gap-3 py-3 text-left transition-opacity',
+            isAnalyticsUnlocked
+              ? 'cursor-pointer'
+              : 'opacity-50 cursor-not-allowed',
+          ].join(' ')}
+          onClick={(e) => {
+            if (!isAnalyticsUnlocked) e.preventDefault();
+          }}
+          aria-disabled={!isAnalyticsUnlocked}
+        >
+          {/* Εικονίδιο */}
+          <span className="flex items-center justify-center w-7 h-7 rounded-full border bg-white text-slate-600 border-slate-300">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </span>
+          <span className="text-slate-700">
+            {t('analyticsPage', 'Analytics')}
+          </span>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-auto text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
       </div>
-    </div>
+
+    </aside>
   );
 }

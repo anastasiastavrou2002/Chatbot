@@ -8,6 +8,10 @@
   "webPresence": "Web Presence",
   "website": "Website",
   "domain": "Domain",
+  "creatingChatbotTitle": "Creating Your Chatbot",
+  "creatingChatbotSubtitle": "This may take a few minutes. You can close this window and come back later.",
+  "dontClosePage": "Don't close this page.",
+  "willNotifyWhenReady": "We will notify you when it's ready.",
   "audienceAndDescription": "Audience & Description",
   "description": "Description",
   "required": "This field is required",
@@ -38,8 +42,7 @@
     "capabilities": "Capabilities",
     "branding": "UI & Branding",
     "test": "Test & Preview",
-    "deploy": "Embed",
-    "analytics": "Analytics"
+    "deploy": "Embed"
     
   },
   "formSteps": {
@@ -53,11 +56,7 @@
   },
   "features": {
     "leadCaptureForms": "Lead Capture Forms",
-    "productRecommendations": "Product Recommendations",
-    "appointmentScheduling": "Appointment Scheduling",
-    "multiLanguageSupport": "Multi-language Support",
-    "emailNotifications": "Email Notifications",
-    "voiceSupport": "Voice Support"
+    "appointmentScheduling": "Appointment Scheduling"
   },
   "fields": {
     "name": "Name",
@@ -213,5 +212,13 @@
     "government": "Government",
     "non_profit": "Non-Profit",
     "other": "Other"
+  },
+  "personas": {
+    "support": "Supportive",
+    "sales": "Sales",
+    "tech": "Technical Support",
+    "friendly": "Friendly & Approachable",
+    "professional": "Professional & Formal",
+    "other":"Other (Please specify)"
   }
 }

@@ -15,6 +15,18 @@ export default function Settings({ formData, handleInputChange, errors, disabled
   const errorTextClasses = 'text-red-600 text-[11px] sm:text-xs mt-1'
   const requiredMark = <span className="text-red-600 ml-1">*</span>
 
+  // helper: ενημερώνει personaSelect + persona χωρίς να αλλάζει το API
+  const handlePersonaSelect = (e) => {
+    const value = e.target.value
+    // ενημέρωση personaSelect
+    handleInputChange({ target: { name: 'personaSelect', value } })
+    // αν δεν είναι Other, αντιγράφουμε την επιλογή στο persona
+    if (value && value !== '__custom__') {
+      handleInputChange({ target: { name: 'persona', value } })
+    }
+    // αν είναι Other, αφήνουμε το persona ως έχει (ο χρήστης θα γράψει)
+  }
+
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-4 md:p-6 shadow-sm">
       <div className="mb-4 md:mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
@@ -24,6 +36,7 @@ export default function Settings({ formData, handleInputChange, errors, disabled
       </div>
 
       <div className="space-y-6 md:space-y-8">
+        {/* Bot Name */}
         <div>
           <label htmlFor="bot-name" className={labelClasses}>
             {t('botName')}
@@ -53,6 +66,7 @@ export default function Settings({ formData, handleInputChange, errors, disabled
           )}
         </div>
 
+        {/* Greeting */}
         <div>
           <label htmlFor="greeting" className={labelClasses}>
             {t('greeting')}
@@ -82,28 +96,71 @@ export default function Settings({ formData, handleInputChange, errors, disabled
           )}
         </div>
 
+        {/* Persona (dropdown + optional free text) */}
         <div>
-          <label htmlFor="persona" className={labelClasses}>
+          <label htmlFor="persona-select" className={labelClasses}>
             {t('persona')}
             {errors.persona ? requiredMark : null}
           </label>
+
+          {/* Select with icon */}
           <div className="relative">
             <div className="pointer-events-none absolute top-2.5 sm:top-3 left-0 flex items-center pl-3">
               <UserCircleIcon className="h-5 w-5 text-slate-400" />
             </div>
-            <TextareaAutosize
-              id="persona"
-              name="persona"
-              value={formData.persona}
-              onChange={handleInputChange}
-              className={`${baseInputClasses} ${errors.persona ? errorClasses : normalClasses} resize-none`}
-              placeholder={t('placeholders.persona')}
-              minRows={3}
+            <select
+              id="persona-select"
+              name="personaSelect"
+              value={formData.personaSelect || ''}
+              onChange={handlePersonaSelect}
+              className={`${baseInputClasses} ${errors.persona ? errorClasses : normalClasses} pl-10`}
               aria-invalid={Boolean(errors.persona)}
               aria-describedby={errors.persona ? 'persona-error' : undefined}
               disabled={disabled}
-            />
+            >
+              <option value="">{t('placeholders.persona')}</option>
+              <option value="Customer Support Agent">
+                {t?.('personas.support') ?? 'Customer Support Agent'}
+              </option>
+              <option value="Sales Advisor">
+                {t?.('personas.sales') ?? 'Sales Advisor'}
+              </option>
+              <option value="Technical Expert">
+                {t?.('personas.tech') ?? 'Technical Expert'}
+              </option>
+              <option value="Travel Planner">
+                {t?.('personas.friendly') ?? 'Travel Planner'}
+              </option>
+              <option value="Fitness Coach">
+                {t?.('personas.professional') ?? 'Fitness Coach'}
+              </option>
+              <option value="__custom__">
+                {t?.('personas.other') ?? 'Other (write your own)'}
+              </option>
+            </select>
           </div>
+
+          {/* Free text only when Other is selected */}
+          {formData.personaSelect === '__custom__' && (
+            <div className="relative mt-3">
+              <div className="pointer-events-none absolute top-2.5 sm:top-3 left-0 flex items-center pl-3">
+                <UserCircleIcon className="h-5 w-5 text-slate-400" />
+              </div>
+              <TextareaAutosize
+                id="persona"
+                name="persona"
+                value={formData.persona}
+                onChange={handleInputChange}
+                className={`${baseInputClasses} ${errors.persona ? errorClasses : normalClasses} resize-none`}
+                placeholder={t('placeholders.persona')}
+                minRows={3}
+                aria-invalid={Boolean(errors.persona)}
+                aria-describedby={errors.persona ? 'persona-error' : undefined}
+                disabled={disabled}
+              />
+            </div>
+          )}
+
           {errors.persona && (
             <small id="persona-error" className={errorTextClasses}>
               {t('required')}
@@ -111,6 +168,7 @@ export default function Settings({ formData, handleInputChange, errors, disabled
           )}
         </div>
 
+        {/* Bot Restrictions */}
         <div>
           <label htmlFor="bot-restrictions" className={labelClasses}>
             {t('botRestrictions')}

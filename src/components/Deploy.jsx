@@ -18,12 +18,8 @@ export default function Deploy({ formData = {}, disabled = false, onPublish, api
     const p = String(position || '').toLowerCase()
     if (p.includes('κάτω') && p.includes('δεξ')) return 'bottom-right'
     if (p.includes('κάτω') && p.includes('αρισ')) return 'bottom-left'
-    if (p.includes('πάνω') && p.includes('δεξ')) return 'top-right'
-    if (p.includes('πάνω') && p.includes('αρισ')) return 'top-left'
     if (p.includes('bottom') && p.includes('right')) return 'bottom-right'
     if (p.includes('bottom') && p.includes('left')) return 'bottom-left'
-    if (p.includes('top') && p.includes('right')) return 'top-right'
-    if (p.includes('top') && p.includes('left')) return 'top-left'
     return 'bottom-right'
   }, [position])
 
@@ -42,10 +38,6 @@ export default function Deploy({ formData = {}, disabled = false, onPublish, api
   }), [botId, theme, posKey, primary, formData.suggestedPrompts, formData.greeting, formData.botName])
 
   const scriptSnippet = widgetScript || `<script>\n  window.__chatbotConfig = ${JSON.stringify(configObj, null, 2)};\n</script>\n<script src="https://cdn.example.com/chat-widget.min.js" defer></script>`
-
-  const reactSnippet = `import { ChatWidget } from '@example/chat-widget-react'\n\nexport default function App() {\n  return (\n    <ChatWidget\n      botId="${botId}"\n      theme="${theme}"\n      position="${posKey}"\n      primaryColor="${primary}"\n      greeting=${JSON.stringify(configObj.greeting)}\n      botName=${JSON.stringify(configObj.botName)}\n      suggestions={${JSON.stringify(configObj.suggestions)}}\n    />\n  )\n}`
-
-  const iframeSnippet = `<iframe\n  src="https://widget.example.com/embed?botId=${encodeURIComponent(botId)}&theme=${encodeURIComponent(theme)}&position=${encodeURIComponent(posKey)}&primary=${encodeURIComponent(primary)}"\n  style="width: 100%; height: 600px; border: 0; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08)"\n  allow="clipboard-write *; microphone *;"\n  loading="lazy"\n></iframe>`
 
   const checklist = [
     'Σωστή επιλογή χρώματος/θέματος',
@@ -112,32 +104,18 @@ export default function Deploy({ formData = {}, disabled = false, onPublish, api
               >
                 Script tag
               </button>
-              <button
-                type="button"
-                onClick={() => setTab('react')}
-                className={`rounded-lg px-3 py-1.5 text-sm font-medium border ${tab === 'react' ? 'bg-indigo-50 border-indigo-200 text-indigo-700' : 'bg-white border-slate-200 text-slate-700'}`}
-              >
-                React
-              </button>
-              <button
-                type="button"
-                onClick={() => setTab('iframe')}
-                className={`rounded-lg px-3 py-1.5 text-sm font-medium border ${tab === 'iframe' ? 'bg-indigo-50 border-indigo-200 text-indigo-700' : 'bg-white border-slate-200 text-slate-700'}`}
-              >
-                Iframe
-              </button>
             </div>
 
             <div className="relative">
               <pre className="max-h-[360px] overflow-auto rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm leading-6">
-                <code className="whitespace-pre-wrap">{tab === 'script' ? scriptSnippet : tab === 'react' ? reactSnippet : iframeSnippet}</code>
+                <code className="whitespace-pre-wrap">{scriptSnippet}</code>
               </pre>
               <button
                 type="button"
-                onClick={() => onCopy(tab === 'script' ? scriptSnippet : tab === 'react' ? reactSnippet : iframeSnippet, tab)}
+                onClick={() => onCopy(scriptSnippet, 'script')}
                 className="absolute right-3 top-3 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
               >
-                {copied === tab ? 'Copied!' : 'Copy'}
+                {copied === 'script' ? 'Copied!' : 'Copy'}
               </button>
             </div>
           </div>
