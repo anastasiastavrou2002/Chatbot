@@ -1,3 +1,4 @@
+// src/components/BasicInfo.jsx
 import React, { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
@@ -9,6 +10,7 @@ import {
   LanguageIcon,
   ArrowUpTrayIcon,
   XMarkIcon,
+  UserCircleIcon, // ➕ για το Bot Type (Preset)
 } from '@heroicons/react/24/outline'
 import TextareaAutosize from 'react-textarea-autosize'
 
@@ -177,6 +179,7 @@ export default function BasicInfo({
   )
 
   const languageOptions = useMemo(() => ['en', 'el'], [])
+  const botPresetOptions = useMemo(() => ['Sales', 'Support', 'FAQ', 'Onboarding'], [])
 
   const baseInputClasses =
     'w-full p-3 pl-9 sm:pl-10 border rounded-xl transition duration-200 bg-slate-50 focus:bg-white focus:outline-none text-base sm:text-sm disabled:opacity-60 disabled:cursor-not-allowed'
@@ -308,6 +311,7 @@ export default function BasicInfo({
         <div className="space-y-4 sm:space-y-6">
           <h3 className={sectionTitle}>{t('conversationSettings')}</h3>
           <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
+            {/* Chatbot Language */}
             <div>
               <label htmlFor="chatbotLanguage" className={labelClasses}>
                 {t('chatbotLanguage')}
@@ -326,7 +330,7 @@ export default function BasicInfo({
                   disabled={disabled}
                 >
                   <option value="">{t('selectLanguage')}</option>
-                  {['en', 'el'].map((lang) => (
+                  {languageOptions.map((lang) => (
                     <option key={lang} value={lang}>
                       {t(`languages.${lang}`)}
                     </option>
@@ -334,6 +338,33 @@ export default function BasicInfo({
                 </select>
               </div>
               {errors.chatbotLanguage && <small className={errorTextClasses}>{t('required')}</small>}
+            </div>
+
+            {/* ➕ Bot Type (Preset) */}
+            <div>
+              <label htmlFor="bot-type-preset" className={labelClasses}>
+                {t('botTypePreset')}
+              </label>
+              <div className="relative">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2 sm:pl-3">
+                  <UserCircleIcon className="h-5 w-5 text-slate-400" />
+                </div>
+                <select
+                  id="bot-type-preset"
+                  name="botTypePreset"
+                  value={formData.botTypePreset || ''}
+                  onChange={handleInputChange}
+                  className={`${baseInputClasses} ${normalClasses}`}
+                  disabled={disabled}
+                >
+                  <option value="">{t('placeholders.botTypePreset')}</option>
+                  {botPresetOptions.map((opt) => (
+                    <option key={opt} value={opt}>
+                      {t(`personas.${opt.toLowerCase()}`)}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
         </div>
@@ -386,7 +417,7 @@ export default function BasicInfo({
                   onChange={handleInputChange}
                   className={`${baseInputClasses} ${errors.domain ? errorClasses : normalClasses}`}
                   placeholder={t('placeholders.domain')}
-                  pattern="^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$"
+                  pattern="^([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$"
                   inputMode="url"
                   disabled={disabled}
                 />

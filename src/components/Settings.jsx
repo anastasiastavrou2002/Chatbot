@@ -15,11 +15,20 @@ export default function Settings({ formData, handleInputChange, errors, disabled
   const errorTextClasses = 'text-red-600 text-[11px] sm:text-xs mt-1'
   const requiredMark = <span className="text-red-600 ml-1">*</span>
 
+  // σταθερά options με slug values + i18n labels (με fallback)
+  const personaOptions = [
+    { value: 'friendly',     label: t('personas.friendly', 'Friendly & Approachable') },
+    { value: 'support',      label: t('personas.support', 'Supportive') },
+    { value: 'professional', label: t('personas.professional', 'Professional & Formal') },
+    { value: 'tech',         label: t('personas.tech', 'Technical Support') },
+  ]
+
   const handlePersonaSelect = (e) => {
     const value = e.target.value
     handleInputChange({ target: { name: 'personaSelect', value } })
     if (value && value !== '__custom__') {
-      handleInputChange({ target: { name: 'persona', value } })
+      const selected = personaOptions.find(p => p.value === value)
+      handleInputChange({ target: { name: 'persona', value: selected?.label || '' } })
     }
   }
 
@@ -114,13 +123,12 @@ export default function Settings({ formData, handleInputChange, errors, disabled
               disabled={disabled}
             >
               <option value="">{t('placeholders.persona')}</option>
-              <option value="Sales">{t('personas.sales')}</option>
-              <option value="Support">{t('personas.support')}</option>
-              <option value="FAQ">{t('personas.faq')}</option>
-              <option value="Onboarding">{t('personas.onboarding')}</option>
-              <option value="__custom__">
-                {t('personas.other')}
-              </option>
+              {personaOptions.map(opt => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+              <option value="__custom__">{t('personas.other', 'Other (Please specify)')}</option>
             </select>
           </div>
 

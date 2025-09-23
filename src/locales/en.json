@@ -236,13 +236,10 @@
     "el": "Greek"
   },
   "personas": {
-    "sales": "Sales",
-    "support": "Support",
-    "faq": "FAQ",
-    "onboarding": "Onboarding",
     "tech": "Technical Expert",
-    "friendly": "Travel Planner",
-    "professional": "Fitness Coach",
+    "friendly": "friendly",
+    "support": "support",
+    "professional": "professional",
     "other": "Other (Please specify)"
   },
   "logoUploader": {
@@ -267,5 +264,7 @@
     },
     "remove": "Remove",
     "add": "Add question"
-  }
+  },
+
+  "botTypePreset": "Select Bot Type"
 }
