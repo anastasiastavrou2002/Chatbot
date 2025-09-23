@@ -2,6 +2,8 @@
   "basicInfo": "Basic Info",
   "companyDetails": "Company Details",
   "companyName": "Company Name",
+  "companyLogo": "Company Logo",
+  "logoPreviewAlt": "Logo preview",
   "industry": "Industry",
   "selectIndustry": "Select an industry",
   "other": "Other (Please specify)",
@@ -24,10 +26,13 @@
   "selectedFiles": "Selected Files",
   "keywords": "Keywords",
   "conversationSettings": "Conversation Settings",
+  "chatbotLanguage": "Chatbot Language",
+  "selectLanguage": "Select a language",
   "botName": "Bot Name",
   "greeting": "Welcome Message",
   "persona": "Persona",
   "botRestrictions": "Restrictions",
+  "defaultFailResponse": "Default Fail Response",
   "back": "Back",
   "next": "Next",
   "submit": "Create Bot",
@@ -43,7 +48,6 @@
     "branding": "UI & Branding",
     "test": "Test & Preview",
     "deploy": "Embed"
-    
   },
   "formSteps": {
     "altEnglish": "English Flag",
@@ -56,7 +60,8 @@
   },
   "features": {
     "leadCaptureForms": "Lead Capture Forms",
-    "appointmentScheduling": "Appointment Scheduling"
+    "appointmentScheduling": "Appointment Scheduling",
+    "feedbackCollection": "Feedback Collection (Thumbs up/down after response)"
   },
   "fields": {
     "name": "Name",
@@ -68,23 +73,35 @@
   "design": {
     "title": "Customize Appearance",
     "subtitle": "Give your chatbot a look and feel that matches your brand.",
+    "switchPreviewPosition": "Switch preview position",
     "primaryColor": "Primary Color",
     "colorPickerAriaLabel": "Color picker",
     "position": "Chatbot Position",
     "themeStyle": "Theme Style",
     "positions": {
       "bottomRight": "Bottom Right",
-      "bottomLeft": "Bottom Left"
+      "bottomLeft": "Bottom Left",
+      "topRight": "Top Right",
+      "topLeft": "Top Left"
     },
     "themes": {
       "modern": "Modern",
       "classic": "Classic",
       "minimal": "Minimal"
     },
+    "botAvatar": {
+      "label": "Bot Avatar",
+      "hint": "Upload a square image (JPG, PNG). Max 2MB.",
+      "previewAlt": "Avatar preview",
+      "aria": "Upload bot avatar",
+      "upload": "Upload",
+      "clear": "Clear"
+    },
     "preview": {
       "livePreview": "Live Preview",
       "headerTitle": "Support",
       "headerSubtitle": "Online",
+      "headerAvatarAlt": "Bot avatar",
       "botMessage1": "Hello! How can I help?",
       "userMessage1": "I'd like some info on pricing.",
       "botMessage2": "I can recommend a plan for you.",
@@ -195,7 +212,8 @@
     "botName": "e.g., Customer Support Assistant",
     "greeting": "e.g., Hello! How can I help you today?",
     "persona": "Describe the bot's persona. e.g., 'You are a friendly and helpful assistant...'",
-    "botRestrictions": "Describe what the bot should not do. e.g., 'Do not answer off-topic questions. Do not use slang.'"
+    "botRestrictions": "Describe what the bot should not do. e.g., 'Do not answer off-topic questions. Do not use slang.'",
+    "defaultFailResponse": "e.g., Sorry, I couldn't find an answer. Could you rephrase?"
   },
   "industries": {
     "technology": "Technology",
@@ -213,12 +231,41 @@
     "non_profit": "Non-Profit",
     "other": "Other"
   },
+  "languages": {
+    "en": "English",
+    "el": "Greek"
+  },
   "personas": {
-    "support": "Supportive",
     "sales": "Sales",
-    "tech": "Technical Support",
-    "friendly": "Friendly & Approachable",
-    "professional": "Professional & Formal",
-    "other":"Other (Please specify)"
+    "support": "Support",
+    "faq": "FAQ",
+    "onboarding": "Onboarding",
+    "tech": "Technical Expert",
+    "friendly": "Travel Planner",
+    "professional": "Fitness Coach",
+    "other": "Other (Please specify)"
+  },
+  "logoUploader": {
+    "title": "Upload Company Logo",
+    "previewAlt": "Logo preview",
+    "action": "Click to upload",
+    "orDragAndDrop": "or drag & drop",
+    "hint": "Accepted formats: PNG, JPG, GIF, SVG. Max 2MB.",
+    "recommended": "Recommended size: 256×256 (1:1)",
+    "maxSize": "Max file size: 2MB · PNG/JPG/SVG",
+    "caption": "Your logo will appear in your chatbot and reports.",
+    "remove": "Remove logo"
+  },
+  "faq": {
+    "title": "FAQs",
+    "subtitle": "Add common questions to guide the bot’s answers.",
+    "question": "Question",
+    "answer": "Answer",
+    "placeholders": {
+      "question": "e.g., What are your opening hours?",
+      "answer": "e.g., We are open Monday–Friday, 9am–5pm."
+    },
+    "remove": "Remove",
+    "add": "Add question"
   }
 }

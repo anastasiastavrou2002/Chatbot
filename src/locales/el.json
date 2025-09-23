@@ -2,60 +2,66 @@
   "basicInfo": "Βασικές Πληροφορίες",
   "companyDetails": "Στοιχεία Εταιρείας",
   "companyName": "Όνομα Εταιρείας",
-  "industry": "Κλάδος Δραστηριότητας",
+  "companyLogo": "Λογότυπο Εταιρείας",
+  "logoPreviewAlt": "Προεπισκόπηση λογοτύπου",
+  "industry": "Κλάδος",
   "selectIndustry": "Επιλέξτε κλάδο",
-  "other": "Άλλο (Προσδιορίστε)",
-  "webPresence": "Διαδικτυακή Παρουσία",
-  "website": "Ιστοσελίδα",
+  "other": "Άλλο (παρακαλώ διευκρινίστε)",
+  "webPresence": "Ιστοσελίδα",
+  "website": "Ιστότοπος",
   "domain": "Domain",
+  "creatingChatbotTitle": "Δημιουργία Chatbot",
+  "creatingChatbotSubtitle": "Αυτό μπορεί να διαρκέσει λίγα λεπτά. Μπορείτε να κλείσετε το παράθυρο και να επιστρέψετε αργότερα.",
+  "dontClosePage": "Μην κλείσετε αυτή τη σελίδα.",
+  "willNotifyWhenReady": "Θα σας ειδοποιήσουμε όταν είναι έτοιμο.",
   "audienceAndDescription": "Κοινό & Περιγραφή",
   "description": "Περιγραφή",
   "required": "Αυτό το πεδίο είναι υποχρεωτικό",
-  "uploadFiles": "Ανέβασμα Αρχείων",
+  "uploadFiles": "Μεταφόρτωση Αρχείων",
   "uploadOptional": "Η προσθήκη αρχείων είναι προαιρετική, αλλά μπορεί να βελτιώσει σημαντικά τα αποτελέσματα.",
   "selectFiles": "Επιλογή Αρχείων",
-  "clickToUpload": "Κάντε κλικ για ανέβασμα",
-  "dragAndDrop": "ή σύρετε και αφήστε τα εδώ",
-  "fileTypes": "Υποστηριζόμενοι τύποι: PDF, DOCX, TXT, κ.λπ.",
+  "clickToUpload": "Κάντε κλικ για μεταφόρτωση",
+  "dragAndDrop": "ή σύρετε και αποθέστε",
+  "fileTypes": "Υποστηριζόμενοι τύποι: PDF, DOCX, TXT, κ.ά.",
   "selectedFiles": "Επιλεγμένα Αρχεία",
   "keywords": "Λέξεις-Κλειδιά",
   "conversationSettings": "Ρυθμίσεις Συνομιλίας",
+  "chatbotLanguage": "Γλώσσα Chatbot",
+  "selectLanguage": "Επιλέξτε γλώσσα",
   "botName": "Όνομα Bot",
   "greeting": "Μήνυμα Καλωσορίσματος",
-  "persona": "Προσωπικότητα (Persona)",
+  "persona": "Προσωπικότητα",
   "botRestrictions": "Περιορισμοί",
+  "defaultFailResponse": "Προεπιλεγμένη Απάντηση Αποτυχίας",
   "back": "Πίσω",
   "next": "Επόμενο",
   "submit": "Δημιουργία Bot",
-  "creatingChatbotTitle": "Δημιουργία του Chatbot σας",
-  "creatingChatbotSubtitle": "Αυτό μπορεί να διαρκέσει μερικά λεπτά. Μπορείτε να κλείσετε αυτό το παράθυρο και να επιστρέψετε αργότερα.",
-  "dontClosePage": "Μην κλείσετε αυτή τη σελίδα.",
-  "willNotifyWhenReady": "Θα σας ειδοποιήσουμε όταν είναι έτοιμο.",
-  "appTitle": "Chatbot Builder",
-  "chatActiveSubtitle": "Το chatbot σας είναι ενεργό και έτοιμο για χρήση.",
+  "submitting": "Δημιουργία...",
+  "appTitle": "Δημιουργία Chatbot",
+  "chatActiveSubtitle": "Το chatbot σας είναι ενεργό και έτοιμο προς χρήση.",
   "copyright": "© 2025 Η Εταιρεία σας",
   "steps": {
-    "basicInfo": "Βασικά Στοιχεία Επιχείρησης",
+    "basicInfo": "Βασικά Στοιχεία",
     "knowledge": "Γνώση & Δεδομένα",
-    "behavior": "Συμπεριφορά & Όρια",
+    "behavior": "Συμπεριφορά & Κανόνες",
     "capabilities": "Δυνατότητες",
     "branding": "Εμφάνιση & Branding",
     "test": "Δοκιμή & Προεπισκόπηση",
-    "deploy": "Εγκατάσταση"
-    
+    "deploy": "Ενσωμάτωση"
   },
   "formSteps": {
-    "altEnglish": "English Flag",
-    "altGreek": "Greek Flag"
+    "altEnglish": "Αγγλική Σημαία",
+    "altGreek": "Ελληνική Σημαία"
   },
   "capabilities": {
     "title": "Δυνατότητες",
     "coreFeatures": "Βασικές Λειτουργίες",
-    "leadCaptureFields": "Πεδία Συλλογής Υποψήφιων Πελατών (Leads)"
+    "leadCaptureFields": "Πεδία Συλλογής Στοιχείων"
   },
   "features": {
-    "leadCaptureForms": "Φόρμες Συλλογής Leads",
-    "appointmentScheduling": "Προγραμματισμός Ραντεβού"
+    "leadCaptureForms": "Φόρμες Συλλογής Στοιχείων",
+    "appointmentScheduling": "Προγραμματισμός Ραντεβού",
+    "feedbackCollection": "Συλλογή Σχολίων (Thumbs up/down μετά από απάντηση)"
   },
   "fields": {
     "name": "Όνομα",
@@ -66,68 +72,79 @@
   },
   "design": {
     "title": "Προσαρμογή Εμφάνισης",
-    "subtitle": "Δώστε στο chatbot σας μια εμφάνιση που ταιριάζει με το brand σας.",
+    "subtitle": "Δώστε στο chatbot σας εμφάνιση που ταιριάζει με το brand σας.",
+    "switchPreviewPosition": "Αλλαγή θέσης προεπισκόπησης",
     "primaryColor": "Κύριο Χρώμα",
     "colorPickerAriaLabel": "Επιλογή χρώματος",
-    "position": "Θέση του Chatbot",
+    "position": "Θέση Chatbot",
     "themeStyle": "Στυλ Θέματος",
     "positions": {
       "bottomRight": "Κάτω Δεξιά",
-      "bottomLeft": "Κάτω Αριστερά"
+      "bottomLeft": "Κάτω Αριστερά",
+      "topRight": "Πάνω Δεξιά",
+      "topLeft": "Πάνω Αριστερά"
     },
     "themes": {
       "modern": "Μοντέρνο",
       "classic": "Κλασικό",
-      "minimal": "Minimal"
+      "minimal": "Απλό"
+    },
+    "botAvatar": {
+      "label": "Avatar Bot",
+      "hint": "Ανεβάστε μια τετράγωνη εικόνα (JPG, PNG). Μέγιστο 2MB.",
+      "previewAlt": "Προεπισκόπηση avatar",
+      "aria": "Μεταφόρτωση avatar bot",
+      "clear": "Καθαρισμός"
     },
     "preview": {
       "livePreview": "Ζωντανή Προεπισκόπηση",
       "headerTitle": "Υποστήριξη",
-      "headerSubtitle": "Online",
+      "headerSubtitle": "Διαθέσιμος",
+      "headerAvatarAlt": "Avatar bot",
       "botMessage1": "Γεια σας! Πώς μπορώ να βοηθήσω;",
       "userMessage1": "Θα ήθελα πληροφορίες για τιμές.",
-      "botMessage2": "Μπορώ να προτείνω ένα πακέτο.",
+      "botMessage2": "Μπορώ να σας προτείνω ένα πλάνο.",
       "inputPlaceholder": "Πληκτρολογήστε μήνυμα…",
       "sendButton": "Αποστολή",
-      "launcherTitle": "Εκκινητής Chat",
+      "launcherTitle": "Εκκίνηση Chat",
       "positionLabel": "Θέση",
       "themeLabel": "Θέμα",
       "colorLabel": "Χρώμα"
     }
   },
   "test": {
-    "title": "Προεπισκόπηση Widget Συνομιλίας",
+    "title": "Προεπισκόπηση Chat Widget",
     "liveMode": "Λειτουργία Ζωντανής Δοκιμής",
     "clearChat": "Καθαρισμός Συνομιλίας",
     "suggestions": {
       "title": "Δοκιμάστε αυτές τις προτάσεις:"
     },
     "typingIndicator": "Το bot πληκτρολογεί…",
-    "inputPlaceholder": "Γράψτε το μήνυμά σας...",
+    "inputPlaceholder": "Πληκτρολογήστε το μήνυμά σας...",
     "sendButton": "Αποστολή",
     "infoBox": {
       "title": "Λειτουργία Προεπισκόπησης:",
-      "body": "Συνδεδεμένο στον διακομιστή για ζωντανή δοκιμή. Οι απαντήσεις εξαρτώνται από το backend σας."
+      "body": "Συνδεδεμένο στον server για ζωντανή δοκιμή. Οι απαντήσεις εξαρτώνται από το backend."
     },
     "defaults": {
-      "botName": "Βοηθός AI",
-      "greeting": "Καλώς ήρθατε! Είμαι ο βοηθός AI σας. Πώς μπορώ να σας βοηθήσω σήμερα;",
-      "placeholderInGreeting": "βοηθός AI"
+      "botName": "AI Βοηθός",
+      "greeting": "Καλώς ήρθατε! Είμαι ο AI βοηθός σας. Πώς μπορώ να βοηθήσω σήμερα;",
+      "placeholderInGreeting": "AI βοηθός"
     },
     "errors": {
-      "server": "Προέκυψε σφάλμα από τον διακομιστή.",
-      "network": "Προέκυψε σφάλμα δικτύου."
+      "server": "Παρουσιάστηκε σφάλμα από τον server.",
+      "network": "Παρουσιάστηκε σφάλμα δικτύου."
     }
   },
   "deploy": {
-    "title": "Εγκατάσταση & Δημοσίευση",
+    "title": "Ενσωμάτωση & Δημοσίευση",
     "status": {
       "published": "Δημοσιευμένο",
       "notPublished": "Μη Δημοσιευμένο"
     },
     "publishButton": {
       "publish": "Δημοσίευση",
-      "published": "Δημοσιεύτηκε"
+      "published": "Δημοσιευμένο"
     },
     "tabs": {
       "script": "Script Tag",
@@ -140,10 +157,10 @@
     },
     "checklist": {
       "title": "Λίστα Ελέγχου",
-      "item1": "Σωστή επιλογή χρώματος/θέματος",
-      "item2": "Σωστή θέση του widget",
-      "item3": "Το domain έχει προστεθεί στα επιτρεπόμενα",
-      "item4": "Το script φορτώνεται στη σελίδα προορισμού"
+      "item1": "Επιλέχθηκε σωστό χρώμα/θέμα",
+      "item2": "Επιλέχθηκε σωστή θέση widget",
+      "item3": "Το domain προστέθηκε στη λίστα επιτρεπόμενων",
+      "item4": "Το script φορτώνει στη σελίδα"
     },
     "config": {
       "title": "Ρυθμίσεις Widget",
@@ -159,8 +176,8 @@
       "remove": "Αφαίρεση"
     },
     "defaults": {
-      "greeting": "Καλώς ήρθατε! Είμαι ο βοηθός AI σας. Πώς μπορώ να σας βοηθήσω;",
-      "botName": "Βοηθός AI"
+      "greeting": "Καλώς ήρθατε! Είμαι ο AI βοηθός σας. Πώς μπορώ να βοηθήσω;",
+      "botName": "AI Βοηθός"
     }
   },
   "analytics": {
@@ -168,16 +185,16 @@
     "lastUpdated": "Τελευταία ενημέρωση: {{time}}",
     "autoRefresh": "Αυτόματη ανανέωση",
     "refresh": "Ανανέωση",
-    "error": "Η φόρτωση των analytics απέτυχε ({{error}}). Δοκιμάστε ξανά.",
+    "error": "Αποτυχία φόρτωσης analytics ({{error}}). Δοκιμάστε ξανά.",
     "stats": {
       "totalChats": "Συνολικές Συνομιλίες",
       "avgResponseTime": "Μέσος Χρόνος Απόκρισης",
-      "deflectionRate": "Ποσοστό Επίλυσης (Deflection)",
+      "deflectionRate": "Ποσοστό Εκτροπής",
       "satisfaction": "Ικανοποίηση Χρηστών"
     },
     "intents": {
-      "title": "Κορυφαίες Προθέσεις Χρηστών (Intents)",
-      "noData": "Δεν υπάρχουν δεδομένα προθέσεων."
+      "title": "Κορυφαίες Προθέσεις Χρηστών",
+      "noData": "Δεν υπάρχουν διαθέσιμα δεδομένα προθέσεων."
     },
     "activity": {
       "title": "Πρόσφατη Δραστηριότητα",
@@ -185,16 +202,17 @@
     }
   },
   "placeholders": {
-    "companyExample": "π.χ., ΑΒΓ Εταιρεία",
-    "industryOther": "Παρακαλώ προσδιορίστε τον κλάδο σας",
+    "companyExample": "π.χ., Acme Inc.",
+    "industryOther": "Παρακαλώ διευκρινίστε τον κλάδο σας",
     "website": "https://www.example.com",
     "domain": "example.com",
-    "description": "Περιγράψτε την εταιρεία σας, την αποστολή της και τι προσφέρει...",
+    "description": "Περιγράψτε την εταιρεία σας, την αποστολή και τις υπηρεσίες...",
     "keywords": "Εισάγετε λέξεις-κλειδιά χωρισμένες με κόμμα (π.χ., τεχνητή νοημοσύνη, μάρκετινγκ, ανάλυση δεδομένων)",
-    "botName": "π.χ., Βοηθός Εξυπηρέτησης",
-    "greeting": "π.χ., Γεια σας! Πώς μπορώ να σας βοηθήσω σήμερα;",
-    "persona": "Περιγράψτε την προσωπικότητα του bot. π.χ., 'Είσαι ένας φιλικός και εξυπηρετικός βοηθός...'",
-    "botRestrictions": "Περιγράψτε τι δεν πρέπει να κάνει το bot. π.χ., 'Μην απαντάς σε ερωτήσεις εκτός θέματος. Μην χρησιμοποιείς αργκό.'"
+    "botName": "π.χ., Βοηθός Εξυπηρέτησης Πελατών",
+    "greeting": "π.χ., Γεια σας! Πώς μπορώ να βοηθήσω σήμερα;",
+    "persona": "Περιγράψτε την προσωπικότητα του bot. π.χ., 'Είστε ένας φιλικός και εξυπηρετικός βοηθός...'",
+    "botRestrictions": "Περιγράψτε τι δεν πρέπει να κάνει το bot. π.χ., 'Μην απαντάτε σε άσχετες ερωτήσεις. Μην χρησιμοποιείτε slang.'",
+    "defaultFailResponse": "π.χ., Συγγνώμη, δεν βρήκα απάντηση. Μπορείτε να το διατυπώσετε αλλιώς;"
   },
   "industries": {
     "technology": "Τεχνολογία",
@@ -202,22 +220,49 @@
     "healthcare": "Υγεία",
     "education": "Εκπαίδευση",
     "retail": "Λιανικό Εμπόριο",
-    "manufacturing": "Βιομηχανία / Παραγωγή",
+    "manufacturing": "Βιομηχανία",
     "hospitality": "Φιλοξενία",
     "media": "Μέσα Μαζικής Ενημέρωσης",
-    "real_estate": "Ακίνητα (Real Estate)",
+    "real_estate": "Ακίνητα",
     "transportation": "Μεταφορές",
     "energy": "Ενέργεια",
     "government": "Δημόσιος Τομέας",
-    "non_profit": "Μη Κερδοσκοπικός Οργανισμός",
+    "non_profit": "Μη Κερδοσκοπικός",
     "other": "Άλλο"
   },
+  "languages": {
+    "en": "Αγγλικά",
+    "el": "Ελληνικά"
+  },
   "personas": {
-    "support": "Υποστήριξη",
     "sales": "Πωλήσεις",
-    "tech": "Τεχνική Βοήθεια",
-    "friendly": "Φιλικός & Προσιτός",
-    "professional": "Επαγγελματικός & Τυπικός",
-    "other":"Άλλο (Παρακαλώ προσδιορίστε)"
+    "support": "Υποστήριξη",
+    "faq": "Συχνές Ερωτήσεις",
+    "onboarding": "Onboarding",
+    "tech": "Τεχνικός Ειδικός",
+    "friendly": "Σύμβουλος Ταξιδιού",
+    "professional": "Προπονητής Fitness",
+    "other": "Άλλο (παρακαλώ διευκρινίστε)"
+  },
+  "logoUploader": {
+    "title": "Μεταφόρτωση Λογοτύπου Εταιρείας",
+    "action": "Κάντε κλικ για μεταφόρτωση",
+    "orDragAndDrop": "ή σύρετε & αποθέστε",
+    "hint": "Αποδεκτοί τύποι: PNG, JPG, GIF, SVG. Μέγιστο 2MB.",
+    "recommended": "Συνιστώμενο μέγεθος: 256×256 (αναλογία 1:1)",
+    "maxSize": "Μέγιστο μέγεθος: 2MB · PNG/JPG/SVG",
+    "caption": "Το λογότυπο θα εμφανίζεται στο chatbot και στις αναφορές σας."
+  },
+  "faq": {
+    "title": "Συχνές Ερωτήσεις (FAQ)",
+    "subtitle": "Προσθέστε συχνές ερωτήσεις για να καθοδηγήσετε τις απαντήσεις του bot.",
+    "question": "Ερώτηση",
+    "answer": "Απάντηση",
+    "placeholders": {
+      "question": "π.χ., Ποιο είναι το ωράριό σας;",
+      "answer": "π.χ., Είμαστε ανοιχτά Δευτέρα–Παρασκευή, 09:00–17:00."
+    },
+    "remove": "Αφαίρεση",
+    "add": "Προσθήκη ερώτησης"
   }
 }

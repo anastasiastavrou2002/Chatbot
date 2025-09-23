@@ -15,16 +15,12 @@ export default function Settings({ formData, handleInputChange, errors, disabled
   const errorTextClasses = 'text-red-600 text-[11px] sm:text-xs mt-1'
   const requiredMark = <span className="text-red-600 ml-1">*</span>
 
-  // helper: ενημερώνει personaSelect + persona χωρίς να αλλάζει το API
   const handlePersonaSelect = (e) => {
     const value = e.target.value
-    // ενημέρωση personaSelect
     handleInputChange({ target: { name: 'personaSelect', value } })
-    // αν δεν είναι Other, αντιγράφουμε την επιλογή στο persona
     if (value && value !== '__custom__') {
       handleInputChange({ target: { name: 'persona', value } })
     }
-    // αν είναι Other, αφήνουμε το persona ως έχει (ο χρήστης θα γράψει)
   }
 
   return (
@@ -103,7 +99,6 @@ export default function Settings({ formData, handleInputChange, errors, disabled
             {errors.persona ? requiredMark : null}
           </label>
 
-          {/* Select with icon */}
           <div className="relative">
             <div className="pointer-events-none absolute top-2.5 sm:top-3 left-0 flex items-center pl-3">
               <UserCircleIcon className="h-5 w-5 text-slate-400" />
@@ -119,28 +114,16 @@ export default function Settings({ formData, handleInputChange, errors, disabled
               disabled={disabled}
             >
               <option value="">{t('placeholders.persona')}</option>
-              <option value="Customer Support Agent">
-                {t?.('personas.support') ?? 'Customer Support Agent'}
-              </option>
-              <option value="Sales Advisor">
-                {t?.('personas.sales') ?? 'Sales Advisor'}
-              </option>
-              <option value="Technical Expert">
-                {t?.('personas.tech') ?? 'Technical Expert'}
-              </option>
-              <option value="Travel Planner">
-                {t?.('personas.friendly') ?? 'Travel Planner'}
-              </option>
-              <option value="Fitness Coach">
-                {t?.('personas.professional') ?? 'Fitness Coach'}
-              </option>
+              <option value="Sales">{t('personas.sales')}</option>
+              <option value="Support">{t('personas.support')}</option>
+              <option value="FAQ">{t('personas.faq')}</option>
+              <option value="Onboarding">{t('personas.onboarding')}</option>
               <option value="__custom__">
-                {t?.('personas.other') ?? 'Other (write your own)'}
+                {t('personas.other')}
               </option>
             </select>
           </div>
 
-          {/* Free text only when Other is selected */}
           {formData.personaSelect === '__custom__' && (
             <div className="relative mt-3">
               <div className="pointer-events-none absolute top-2.5 sm:top-3 left-0 flex items-center pl-3">
@@ -193,6 +176,36 @@ export default function Settings({ formData, handleInputChange, errors, disabled
           </div>
           {errors.botRestrictions && (
             <small id="botRestrictions-error" className={errorTextClasses}>
+              {t('required')}
+            </small>
+          )}
+        </div>
+
+        {/* Default Fail Response */}
+        <div>
+          <label htmlFor="default-fail-response" className={labelClasses}>
+            {t('defaultFailResponse')}
+            {errors.defaultFailResponse ? requiredMark : null}
+          </label>
+          <div className="relative">
+            <div className="pointer-events-none absolute top-2.5 sm:top-3 left-0 flex items-center pl-3">
+              <SparklesIcon className="h-5 w-5 text-slate-400" />
+            </div>
+            <TextareaAutosize
+              id="default-fail-response"
+              name="defaultFailResponse"
+              value={formData.defaultFailResponse}
+              onChange={handleInputChange}
+              className={`${baseInputClasses} ${errors.defaultFailResponse ? errorClasses : normalClasses} resize-none`}
+              placeholder={t('placeholders.defaultFailResponse')}
+              minRows={2}
+              aria-invalid={Boolean(errors.defaultFailResponse)}
+              aria-describedby={errors.defaultFailResponse ? 'defaultFailResponse-error' : undefined}
+              disabled={disabled}
+            />
+          </div>
+          {errors.defaultFailResponse && (
+            <small id="defaultFailResponse-error" className={errorTextClasses}>
               {t('required')}
             </small>
           )}

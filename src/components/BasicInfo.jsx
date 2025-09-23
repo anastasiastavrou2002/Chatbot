@@ -1,14 +1,159 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   BuildingOfficeIcon,
   GlobeAltIcon,
   WrenchScrewdriverIcon,
   PencilSquareIcon,
+  PhotoIcon,
+  LanguageIcon,
+  ArrowUpTrayIcon,
+  XMarkIcon,
 } from '@heroicons/react/24/outline'
 import TextareaAutosize from 'react-textarea-autosize'
 
-export default function BasicInfo({ formData, handleInputChange, errors, disabled = false }) {
+/* =========================
+   Elegant Logo Uploader
+   ========================= */
+const LogoUploader = ({ logoPreview, handleFileChange, disabled, t }) => {
+  const [isDragging, setIsDragging] = useState(false)
+
+  const onDrop = useCallback(
+    (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+      setIsDragging(false)
+      if (disabled) return
+
+      const file = e.dataTransfer?.files?.[0]
+      if (!file) return
+
+      // Forward as a minimal event-like object so parent logic continues to work
+      handleFileChange({
+        target: { name: 'logo', files: [file] },
+      })
+    },
+    [handleFileChange, disabled]
+  )
+
+  const onRemove = useCallback(() => {
+    if (disabled) return
+    handleFileChange({
+      target: { name: 'logo', files: [], value: null },
+    })
+  }, [handleFileChange, disabled])
+
+  return (
+    <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
+      {/* Preview */}
+      <div className="flex items-center justify-center">
+        <div className="relative">
+          {/* Decorative ring */}
+          <div className="absolute -inset-1 rounded-full bg-gradient-to-tr from-indigo-200 via-violet-200 to-rose-200 blur-sm opacity-70" />
+          <div className="relative h-24 w-24 overflow-hidden rounded-full ring-1 ring-slate-200">
+            {logoPreview ? (
+              <img
+                src={logoPreview}
+                alt={t('logoUploader.previewAlt')}
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center bg-slate-50">
+                <PhotoIcon className="h-10 w-10 text-slate-400" />
+              </div>
+            )}
+          </div>
+
+          {/* Remove button */}
+          {logoPreview ? (
+            <button
+              type="button"
+              onClick={onRemove}
+              disabled={disabled}
+              title={t('logoUploader.remove')}
+              aria-label={t('logoUploader.remove')}
+              className="absolute -right-2 -top-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white shadow ring-1 ring-slate-200 transition hover:shadow-md disabled:opacity-50"
+            >
+              <XMarkIcon className="h-4 w-4 text-slate-500" />
+            </button>
+          ) : null}
+        </div>
+      </div>
+
+      {/* Uploader */}
+      <div className="sm:col-span-2">
+        <label htmlFor="logo-upload" className="block text-xs sm:text-sm font-medium text-slate-600 mb-2">
+          {t('logoUploader.title')}
+        </label>
+
+        <div
+          onDragOver={(e) => {
+            e.preventDefault()
+            if (!disabled) setIsDragging(true)
+          }}
+          onDragLeave={() => setIsDragging(false)}
+          onDrop={onDrop}
+          className={[
+            'relative flex w-full items-center justify-between gap-4 rounded-2xl border p-4 sm:p-5 transition',
+            isDragging ? 'border-indigo-500 bg-indigo-50/60' : 'border-slate-200 bg-slate-50 hover:bg-white',
+            disabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer',
+          ].join(' ')}
+          onClick={() => {
+            if (!disabled) document.getElementById('logo-upload')?.click()
+          }}
+          role="button"
+          aria-disabled={disabled}
+        >
+          <div className="flex items-center gap-3">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white ring-1 ring-slate-200 shadow-sm">
+              <ArrowUpTrayIcon className="h-5 w-5 text-slate-600" />
+            </span>
+            <div className="text-sm">
+              <p className="font-medium text-slate-800">
+                {t('logoUploader.action')}
+                <span className="text-slate-500"> {t('logoUploader.orDragAndDrop')}</span>
+              </p>
+              <p className="text-xs text-slate-500">
+                {t('logoUploader.hint')}
+              </p>
+            </div>
+          </div>
+
+          <div className="hidden sm:block text-xs text-right text-slate-500">
+            <p>
+              <span className="font-medium text-slate-700">{t('logoUploader.recommended')}</span> 256×256 (1:1)
+            </p>
+            <p>{t('logoUploader.maxSize')} 2MB · PNG/JPG/SVG</p>
+          </div>
+
+          <input
+            type="file"
+            id="logo-upload"
+            name="logo"
+            onChange={handleFileChange}
+            disabled={disabled}
+            className="sr-only"
+            accept="image/png, image/jpeg, image/gif, image/svg+xml"
+          />
+        </div>
+
+        {/* Caption / small helper text */}
+        <p className="mt-2 text-xs text-slate-500">
+          {t('logoUploader.caption')}
+        </p>
+      </div>
+    </div>
+  )
+}
+
+export default function BasicInfo({
+  formData,
+  handleInputChange,
+  handleFileChange,
+  logoPreview,
+  errors,
+  disabled = false,
+}) {
   const { t } = useTranslation()
 
   const industryOptions = useMemo(
@@ -31,7 +176,8 @@ export default function BasicInfo({ formData, handleInputChange, errors, disable
     []
   )
 
-  // Mobile-first classes
+  const languageOptions = useMemo(() => ['en', 'el'], [])
+
   const baseInputClasses =
     'w-full p-3 pl-9 sm:pl-10 border rounded-xl transition duration-200 bg-slate-50 focus:bg-white focus:outline-none text-base sm:text-sm disabled:opacity-60 disabled:cursor-not-allowed'
   const normalClasses = 'border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500'
@@ -56,7 +202,7 @@ export default function BasicInfo({ formData, handleInputChange, errors, disable
     }
   }
 
-  const showOther = formData.industry === 'other'
+  const showOtherIndustry = formData.industry === 'other'
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm">
@@ -71,7 +217,7 @@ export default function BasicInfo({ formData, handleInputChange, errors, disable
         <div className="space-y-4 sm:space-y-6">
           <h3 className={sectionTitle}>{t('companyDetails')}</h3>
           <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
-            <div>
+            <div className="md:col-span-2">
               <label htmlFor="company-name" className={labelClasses}>
                 {t('companyName')}
                 {errors.companyName ? requiredMark : null}
@@ -88,17 +234,20 @@ export default function BasicInfo({ formData, handleInputChange, errors, disable
                   className={`${baseInputClasses} ${errors.companyName ? errorClasses : normalClasses} resize-none`}
                   placeholder={t('placeholders.companyExample')}
                   minRows={1}
-                  aria-invalid={Boolean(errors.companyName)}
-                  aria-describedby={errors.companyName ? 'companyName-error' : undefined}
                   disabled={disabled}
-                  autoComplete="organization"
                 />
               </div>
-              {errors.companyName && (
-                <small id="companyName-error" className={errorTextClasses}>
-                  {t('required')}
-                </small>
-              )}
+              {errors.companyName && <small className={errorTextClasses}>{t('required')}</small>}
+            </div>
+
+            <div className="md:col-span-2">
+              <label className={labelClasses}>{t('companyLogo')}</label>
+              <LogoUploader
+                logoPreview={logoPreview}
+                handleFileChange={handleFileChange}
+                disabled={disabled}
+                t={t}
+              />
             </div>
 
             <div>
@@ -116,8 +265,6 @@ export default function BasicInfo({ formData, handleInputChange, errors, disable
                   value={formData.industry}
                   onChange={handleInputChange}
                   className={`${baseInputClasses} ${errors.industry ? errorClasses : normalClasses}`}
-                  aria-invalid={Boolean(errors.industry)}
-                  aria-describedby={errors.industry ? 'industry-error' : undefined}
                   disabled={disabled}
                 >
                   <option value="">{t('selectIndustry')}</option>
@@ -128,15 +275,11 @@ export default function BasicInfo({ formData, handleInputChange, errors, disable
                   ))}
                 </select>
               </div>
-              {errors.industry && (
-                <small id="industry-error" className={errorTextClasses}>
-                  {t('required')}
-                </small>
-              )}
+              {errors.industry && <small className={errorTextClasses}>{t('required')}</small>}
             </div>
 
-            {showOther && (
-              <div className="md:col-span-2">
+            {showOtherIndustry && (
+              <div className="md:col-start-2">
                 <label htmlFor="industryOther" className={labelClasses}>
                   {t('other')}
                   {errors.industryOther ? requiredMark : null}
@@ -151,17 +294,47 @@ export default function BasicInfo({ formData, handleInputChange, errors, disable
                   } resize-none pl-3 text-base sm:text-sm`}
                   placeholder={t('placeholders.industryOther')}
                   minRows={1}
-                  aria-invalid={Boolean(errors.industryOther)}
-                  aria-describedby={errors.industryOther ? 'industryOther-error' : undefined}
                   disabled={disabled}
                 />
-                {errors.industryOther && (
-                  <small id="industryOther-error" className={errorTextClasses}>
-                    {t('required')}
-                  </small>
-                )}
+                {errors.industryOther && <small className={errorTextClasses}>{t('required')}</small>}
               </div>
             )}
+          </div>
+        </div>
+
+        <div className="h-px w-full bg-slate-200" />
+
+        {/* Chatbot Configuration */}
+        <div className="space-y-4 sm:space-y-6">
+          <h3 className={sectionTitle}>{t('conversationSettings')}</h3>
+          <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
+            <div>
+              <label htmlFor="chatbotLanguage" className={labelClasses}>
+                {t('chatbotLanguage')}
+                {errors.chatbotLanguage ? requiredMark : null}
+              </label>
+              <div className="relative">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2 sm:pl-3">
+                  <LanguageIcon className="h-5 w-5 text-slate-400" />
+                </div>
+                <select
+                  id="chatbotLanguage"
+                  name="chatbotLanguage"
+                  value={formData.chatbotLanguage}
+                  onChange={handleInputChange}
+                  className={`${baseInputClasses} ${errors.chatbotLanguage ? errorClasses : normalClasses}`}
+                  disabled={disabled}
+                >
+                  <option value="">{t('selectLanguage')}</option>
+                  {['en', 'el'].map((lang) => (
+                    <option key={lang} value={lang}>
+                      {t(`languages.${lang}`)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {errors.chatbotLanguage && <small className={errorTextClasses}>{t('required')}</small>}
+            </div>
           </div>
         </div>
 
@@ -190,17 +363,10 @@ export default function BasicInfo({ formData, handleInputChange, errors, disable
                   className={`${baseInputClasses} ${errors.websiteURL ? errorClasses : normalClasses}`}
                   placeholder={t('placeholders.website')}
                   inputMode="url"
-                  aria-invalid={Boolean(errors.websiteURL)}
-                  aria-describedby={errors.websiteURL ? 'website-error' : undefined}
                   disabled={disabled}
-                  autoComplete="url"
                 />
               </div>
-              {errors.websiteURL && (
-                <small id="website-error" className={errorTextClasses}>
-                  {t('required')}
-                </small>
-              )}
+              {errors.websiteURL && <small className={errorTextClasses}>{t('required')}</small>}
             </div>
 
             <div>
@@ -222,18 +388,10 @@ export default function BasicInfo({ formData, handleInputChange, errors, disable
                   placeholder={t('placeholders.domain')}
                   pattern="^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$"
                   inputMode="url"
-                  aria-invalid={Boolean(errors.domain)}
-                  aria-describedby={errors.domain ? 'domain-error' : undefined}
                   disabled={disabled}
-                  autoCapitalize="off"
-                  autoCorrect="off"
                 />
               </div>
-              {errors.domain && (
-                <small id="domain-error" className={errorTextClasses}>
-                  {t('required')}
-                </small>
-              )}
+              {errors.domain && <small className={errorTextClasses}>{t('required')}</small>}
             </div>
           </div>
         </div>
@@ -261,16 +419,10 @@ export default function BasicInfo({ formData, handleInputChange, errors, disable
                   className={`${baseInputClasses} ${errors.description ? errorClasses : normalClasses} resize-none`}
                   placeholder={t('placeholders.description')}
                   minRows={3}
-                  aria-invalid={Boolean(errors.description)}
-                  aria-describedby={errors.description ? 'description-error' : undefined}
                   disabled={disabled}
                 />
               </div>
-              {errors.description && (
-                <small id="description-error" className={errorTextClasses}>
-                  {t('required')}
-                </small>
-              )}
+              {errors.description && <small className={errorTextClasses}>{t('required')}</small>}
             </div>
           </div>
         </div>

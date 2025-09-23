@@ -10,10 +10,12 @@ export default function Capabilities({ formData, handleInputChange, disabled = f
   const checkboxLabel = 'text-sm sm:text-base text-slate-700 leading-tight break-words'
   const cardClasses = 'rounded-2xl border border-slate-200 bg-white p-4 md:p-6 shadow-sm'
 
+  // Προσθέτουμε το feedback ως απλό toggle (χωρίς extra options panel)
   const coreFeatures = useMemo(
     () => [
       { key: 'leadCapture', label: t('features.leadCaptureForms') },
       { key: 'appointmentScheduling', label: t('features.appointmentScheduling') },
+      { key: 'feedbackCollection', label: t('features.feedbackCollection') }
     ],
     [t]
   )
@@ -49,6 +51,7 @@ export default function Capabilities({ formData, handleInputChange, disabled = f
       </div>
 
       <div className="space-y-6 md:space-y-8">
+        {/* Core features */}
         <section className="space-y-3 md:space-y-4">
           <h3 className={sectionTitle}>{t('capabilities.coreFeatures')}</h3>
           <div className="grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -68,11 +71,9 @@ export default function Capabilities({ formData, handleInputChange, disabled = f
           </div>
         </section>
 
+        {/* Lead capture fields (εμφανίζεται μόνο αν είναι ενεργό το leadCapture) */}
         {leadEnabled && (
-          <section
-            className="space-y-3 md:space-y-4"
-            aria-hidden={!leadEnabled}
-          >
+          <section className="space-y-3 md:space-y-4" aria-hidden={!leadEnabled}>
             <h4 className={groupTitle}>{t('capabilities.leadCaptureFields')}</h4>
             <div className="grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {leadCaptureFields.map(({ key, label }) => (
