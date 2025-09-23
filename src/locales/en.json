@@ -5,15 +5,15 @@
   "companyLogo": "Company Logo",
   "logoPreviewAlt": "Logo preview",
   "industry": "Industry",
-  "selectIndustry": "Select an industry",
-  "other": "Other (Please specify)",
+  "selectIndustry": "Select industry",
+  "other": "Other (please specify)",
   "webPresence": "Web Presence",
   "website": "Website",
   "domain": "Domain",
-  "creatingChatbotTitle": "Creating Your Chatbot",
-  "creatingChatbotSubtitle": "This may take a few minutes. You can close this window and come back later.",
-  "dontClosePage": "Don't close this page.",
-  "willNotifyWhenReady": "We will notify you when it's ready.",
+  "creatingChatbotTitle": "Creating Chatbot",
+  "creatingChatbotSubtitle": "This may take a few minutes. You can close this window and return later.",
+  "dontClosePage": "Do not close this page.",
+  "willNotifyWhenReady": "We will notify you when it’s ready.",
   "audienceAndDescription": "Audience & Description",
   "description": "Description",
   "required": "This field is required",
@@ -21,13 +21,13 @@
   "uploadOptional": "Adding files is optional, but can significantly improve results.",
   "selectFiles": "Select Files",
   "clickToUpload": "Click to upload",
-  "dragAndDrop": "or drag and drop",
+  "dragAndDrop": "or drag & drop",
   "fileTypes": "Supported types: PDF, DOCX, TXT, etc.",
   "selectedFiles": "Selected Files",
   "keywords": "Keywords",
   "conversationSettings": "Conversation Settings",
   "chatbotLanguage": "Chatbot Language",
-  "selectLanguage": "Select a language",
+  "selectLanguage": "Select language",
   "botName": "Bot Name",
   "greeting": "Welcome Message",
   "persona": "Persona",
@@ -61,7 +61,7 @@
   "features": {
     "leadCaptureForms": "Lead Capture Forms",
     "appointmentScheduling": "Appointment Scheduling",
-    "feedbackCollection": "Feedback Collection (Thumbs up/down after response)"
+    "feedbackCollection": "Feedback Collection (Thumbs up/down after a response)"
   },
   "fields": {
     "name": "Name",
@@ -72,7 +72,7 @@
   },
   "design": {
     "title": "Customize Appearance",
-    "subtitle": "Give your chatbot a look and feel that matches your brand.",
+    "subtitle": "Give your chatbot a look that matches your brand.",
     "switchPreviewPosition": "Switch preview position",
     "primaryColor": "Primary Color",
     "colorPickerAriaLabel": "Color picker",
@@ -92,9 +92,8 @@
     "botAvatar": {
       "label": "Bot Avatar",
       "hint": "Upload a square image (JPG, PNG). Max 2MB.",
-      "previewAlt": "Avatar preview",
+      "previewAlt": "Bot avatar preview",
       "aria": "Upload bot avatar",
-      "upload": "Upload",
       "clear": "Clear"
     },
     "preview": {
@@ -133,7 +132,7 @@
       "placeholderInGreeting": "AI assistant"
     },
     "errors": {
-      "server": "An error occurred from the server.",
+      "server": "A server error occurred.",
       "network": "A network error occurred."
     }
   },
@@ -211,9 +210,10 @@
     "keywords": "Enter keywords separated by commas (e.g., artificial intelligence, marketing, data analysis)",
     "botName": "e.g., Customer Support Assistant",
     "greeting": "e.g., Hello! How can I help you today?",
-    "persona": "Describe the bot's persona. e.g., 'You are a friendly and helpful assistant...'",
+    "persona": "Describe the bot's persona.",
     "botRestrictions": "Describe what the bot should not do. e.g., 'Do not answer off-topic questions. Do not use slang.'",
-    "defaultFailResponse": "e.g., Sorry, I couldn't find an answer. Could you rephrase?"
+    "defaultFailResponse": "e.g., Sorry, I couldn’t find an answer. Could you rephrase?",
+    "botTypePreset": "Select bot type"
   },
   "industries": {
     "technology": "Technology",
@@ -236,25 +236,26 @@
     "el": "Greek"
   },
   "personas": {
-    "tech": "Technical Expert",
-    "friendly": "friendly",
-    "support": "support",
-    "professional": "professional",
-    "other": "Other (Please specify)"
+    "tech": "Technical Support",
+    "friendly": "Friendly",
+    "support": "Supportive",
+    "professional": "Professional",
+    "sales": "Sales",
+    "faq": "FAQ",
+    "onboarding": "Onboarding",
+    "other": "Other (please specify)"
   },
   "logoUploader": {
     "title": "Upload Company Logo",
-    "previewAlt": "Logo preview",
     "action": "Click to upload",
     "orDragAndDrop": "or drag & drop",
-    "hint": "Accepted formats: PNG, JPG, GIF, SVG. Max 2MB.",
-    "recommended": "Recommended size: 256×256 (1:1)",
-    "maxSize": "Max file size: 2MB · PNG/JPG/SVG",
-    "caption": "Your logo will appear in your chatbot and reports.",
-    "remove": "Remove logo"
+    "hint": "Accepted types: PNG, JPG, GIF, SVG. Max 2MB.",
+    "recommended": "Recommended size: 256×256 (1:1 ratio)",
+    "maxSize": "Max size: 2MB · PNG/JPG/SVG",
+    "caption": "The logo will appear in your chatbot and reports."
   },
   "faq": {
-    "title": "FAQs",
+    "title": "Frequently Asked Questions (FAQ)",
     "subtitle": "Add common questions to guide the bot’s answers.",
     "question": "Question",
     "answer": "Answer",
@@ -265,6 +266,5 @@
     "remove": "Remove",
     "add": "Add question"
   },
-
-  "botTypePreset": "Select Bot Type"
+  "botTypePreset": "Bot Type (Preset)"
 }
