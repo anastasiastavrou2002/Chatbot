@@ -266,5 +266,26 @@
     "remove": "Remove",
     "add": "Add question"
   },
-  "botTypePreset": "Bot Type (Preset)"
+  "botTypePreset": "Bot Type (Preset)",
+  "login": {
+    "title": "OTP Login",
+    "welcomeBack": "Welcome back!",
+    "enterCode": "Enter the code we sent you",
+    "email": "Email",
+    "otpCode": "OTP Code",
+    "sendOtp": "Send OTP",
+    "login": "Login",
+    "sending": "Sending OTP...",
+    "loggingIn": "Logging in...",
+    "changeEmail": "Change email",
+    "resendOtp": "Resend OTP",
+    "resending": "Sending...",
+    "enterEmail": "Please enter your email",
+    "validEmail": "Please enter a valid email",
+    "enterOtp": "Please enter the 6-digit OTP code",
+    "otpSentTo": "Enter the 6-digit code we sent to",
+    "successLogin": "Login successful!",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up"
+  }
 }

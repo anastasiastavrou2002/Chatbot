@@ -8,6 +8,7 @@ import Design from './components/Design.jsx';
 import Capabilities from './components/Capabilities.jsx';
 import Test from './components/Test.jsx';
 import Deploy from './components/Deploy.jsx';
+// ⛔️ Αφαιρέθηκε: import OtpPage from './components/OtpPage';
 
 import GreekFlag from './assets/greekflag.jpg';
 import UkFlag from './assets/ukflag.jpg';
@@ -56,6 +57,8 @@ export default function FormSteps({
     [errors]
   );
 
+  // Καλείται στο βήμα 4 (Design). Δημιουργεί FormData και καλεί onFormSubmit,
+  // το οποίο στο App.jsx ανοίγει το OTP overlay και κάνει το πραγματικό submit μετά την επιτυχία OTP.
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
     setIsSubmitting(true);
@@ -64,8 +67,9 @@ export default function FormSteps({
       const formDataToSend = new FormData();
       formDataToSend.append('company_info', JSON.stringify(formData));
       files.forEach((file) => formDataToSend.append('files', file));
-      await onFormSubmit(formDataToSend);
+      await onFormSubmit(formDataToSend); // <-- δεν μπλοκάρει, στο App επιστρέφεις Promise.resolve()
     } finally {
+      // Μικρή καθυστέρηση για smooth UI
       setTimeout(() => setIsSubmitting(false), 400);
     }
   };
@@ -88,7 +92,6 @@ export default function FormSteps({
     if (isDone) {
       cls = `${base} bg-indigo-600 border-indigo-600 text-white`;
     } else if (isActive) {
-      // ΠΙΟ ΕΝΤΟΝΟ active: παχύτερο περίγραμμα + ring
       cls = `${base} bg-white border-2 border-indigo-600 text-indigo-700 ring-2 ring-indigo-300`;
     } else {
       cls = `${base} bg-white border-slate-300 text-slate-500`;
@@ -161,7 +164,7 @@ export default function FormSteps({
             className={`w-7 h-5 cursor-pointer rounded shadow ${i18n.language === 'en' ? 'ring-2 ring-indigo-500' : ''}`}
             onClick={() => changeLang('en')}
           />
-        <img
+          <img
             src={GreekFlag}
             alt={t('formSteps.altGreek', 'Ελληνικά')}
             className={`w-7 h-5 cursor-pointer rounded shadow ${i18n.language === 'el' ? 'ring-2 ring-indigo-500' : ''}`}
@@ -169,9 +172,9 @@ export default function FormSteps({
           />
         </div>
 
-        {/* Τίτλος τρέχοντος βήματος – με αριθμό μπροστά (π.χ. "5. Εμφάνιση & Branding") */}
+        {/* Τίτλος τρέχοντος βήματος */}
         <p className="text-sm font-medium text-indigo-600" aria-live="polite" aria-atomic="true">
-          {(currentPage + 1) + '. '}{steps[currentPage]}
+          {currentPage + 1}. {steps[currentPage]}
         </p>
 
         {/* Compact numeric stepper μόνο στο mobile */}
@@ -185,6 +188,10 @@ export default function FormSteps({
           {currentPage === 2 && <Settings {...commonProps} />}
           {currentPage === 3 && <Capabilities {...commonProps} />}
           {currentPage === 4 && <Design {...commonProps} />}
+
+          {/* ⛔️ Αφαιρέθηκε: Βήμα OTP. Το OTP γίνεται ως overlay στο App.jsx */}
+
+          {/* Αν συνεχίσεις να θες Test/Deploy μέσα στο wizard (π.χ. χωρίς Dashboard), κράτησέ τα: */}
           {currentPage === 5 && (
             <Test
               formData={inheritedFormData || formData}
@@ -206,11 +213,12 @@ export default function FormSteps({
             </button>
           )}
 
+          {/* Στο βήμα 4 (Design) κάνουμε submit που ανοίγει OTP overlay στο App.jsx */}
           {currentPage < steps.length - 1 && (
             <button
               type="button"
               onClick={currentPage === 4 ? handleSubmit : onNext}
-              className="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg"
+              className="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg disabled:bg-slate-400 disabled:cursor-not-allowed"
               disabled={currentPage === 4 && isSubmitting}
             >
               {currentPage === 4 ? (isSubmitting ? t('submitting') : t('createChatbot', 'Create Chatbot')) : t('next')}
